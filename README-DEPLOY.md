@@ -5,3 +5,4 @@
 - Upload all files to your GitHub repo root. Netlify publish dir: root (".").
 
 © 2025 CurbEase.
+
