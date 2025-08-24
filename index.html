@@ -680,7 +680,6 @@ document.addEventListener('DOMContentLoaded', function(){
       e.preventDefault();
       var input = prompt('Enter admin password:');
       if (input && input === ADMIN_PASS){
-        try { sessionStorage.setItem('ce_admin_ok','1'); } catch(e){}
         window.location.href = '/admin.html';
       } else if (input !== null) {
         alert('Incorrect password.');
