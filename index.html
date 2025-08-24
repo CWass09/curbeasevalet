@@ -1,11 +1,171 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CurbEase Bin Valet</title>
-<link rel="stylesheet" href="/fixes.css"/>
-<!-- Google tag (gtag.js) -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CurbEase Bin Valet – Prosper • Light Farms</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='64' fill='%231e3a8a'/%3E%3Cpath d='M20 70l24-24 16 16 28-28 20 20v28H20z' fill='%23fff'/%3E%3C/svg%3E" type="image/svg+xml">
+<style>
+:root{
+  --navy:#0b1223;
+  --blue:#2563eb;
+  --blue-dark:#1e40af;
+  --red-accent:#dc2626;
+  --ink:#0f172a;
+  --muted:#475569;
+  --card:#ffffff;
+  --border:#e5e7eb;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 600px at 50% -10%,#eef2ff 0%,#f3f4f6 45%,#f8fafc 100%)}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--border)}
+nav .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.brand .badge{font-weight:800;letter-spacing:.1px}
+.brand .sub{color:#64748b}
+.logo{width:38px;height:38px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.nav-main{display:none;gap:16px}
+.actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .95rem;border-radius:12px;border:1px solid var(--blue);background:var(--blue);color:#fff;transition:transform .15s ease, box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,.25)}
+.btn-primary{background:var(--blue);border-color:var(--blue)}
+.btn-outline{background:#fff;border-color:#cbd5e1;color:var(--ink)}
+.menu-toggle{display:inline-flex;padding:.45rem .75rem;border-radius:12px;border:1px solid #cbd5e1;background:#fff}
+@media(min-width:980px){ .nav-main{display:flex} .menu-toggle{display:none} }
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu[hidden]{display:none}
+.mobile-menu{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr;background:rgba(11,18,35,0.9);backdrop-filter:blur(8px)}
+.mobile-menu .panel{max-width:520px;margin:16px auto;background:#0b1223;border:1px solid #1f2937;border-radius:16px;padding:16px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.mobile-menu .item{display:block;padding:.85rem 1rem;border-radius:12px;color:#fff}
+.mobile-menu .item:hover{background:rgba(255,255,255,0.08)}
+.mobile-menu .actions .btn{width:100%}
+
+/* HERO */
+.hero{padding:64px 0 36px;background:linear-gradient(120deg,#0b1223 0%, #1e3a8a 55%, #2563eb 100%);color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(800px 280px at 40% 20%,rgba(255,255,255,.12),transparent 65%);pointer-events:none}
+.hero .wrap{display:grid;gap:18px;grid-template-columns:1fr}
+.hero h1{font-size:2.8rem;margin:0 0 .4rem}
+.hero p{color:#e2e8f0}
+@media(min-width:980px){ .hero .wrap{grid-template-columns:1.05fr .95fr} .hero h1{font-size:3.3rem} }
+
+/* TRUST BADGE */
+.trust-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.35rem .65rem;border-radius:999px;
+  background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.30);color:#ffe4e6;font-weight:800;letter-spacing:.2px;line-height:1}
+.trust-badge .dot{width:4px;height:4px;border-radius:999px;background:rgba(255,255,255,.85);display:inline-block}
+.trust-badge strong{color:#fff}
+.trust-badge svg{flex:0 0 auto}
+
+/* DONATION BADGE (hero) */
+.donate-badge{display:inline-flex;align-items:center;gap:.55rem;margin-top:.5rem;
+  padding:.5rem .75rem;border-radius:12px;
+  background:linear-gradient(120deg,#991b1b,#dc2626 60%,#ef4444);
+  color:#fff;font-weight:900;letter-spacing:.2px;box-shadow:0 8px 18px rgba(220,38,38,.35);
+  border:1px solid rgba(255,255,255,.22)}
+.donate-badge svg{filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+.donate-badge .subtext{font-weight:700;color:#fffbeb}
+
+/* HERO BINS */
+#bins-hero{width:100%;max-width:520px;margin:auto;display:block;filter:drop-shadow(0 18px 28px rgba(0,0,0,.25))}
+
+/* SECTIONS */
+section{padding:64px 0}
+.lead{color:#475569}
+.grid{display:grid;gap:18px}
+
+/* PRICING */
+.pricing{grid-template-columns:1fr}
+@media(min-width:980px){ .pricing{grid-template-columns:repeat(4,1fr)} }
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 6px 16px rgba(15,23,42,.04);transition:transform .15s ease, box-shadow .15s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 26px rgba(15,23,42,.12)}
+.card h3{margin-top:6px}
+.price{font-size:2rem;color:var(--ink)} .price .small{font-size:1rem;color:#475569}
+.features{color:#475569}
+
+/* PRICING COLOR VARIANTS */
+.plan{position:relative;overflow:hidden}
+.plan .tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.9);color:#0b1223;
+  border-radius:999px;padding:.25rem .6rem;font-weight:700;font-size:.8rem;border:1px solid rgba(0,0,0,.08)}
+.plan-basic{background:linear-gradient(180deg,#ecfdf5 0%,#ffffff 75%);border-color:#bbf7d0}
+.plan-basic .price{color:#065f46}
+.plan-standard{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 75%);border-color:#bfdbfe}
+.plan-standard .price{color:#1e3a8a}
+.plan-premium{background:linear-gradient(180deg,#faf5ff 0%,#ffffff 75%);border-color:#e9d5ff}
+.plan-premium .price{color:#6b21a8}
+.plan-business{background:linear-gradient(180deg,#fff7ed 0%,#ffffff 75%);border-color:#fed7aa}
+.plan-business .price{color:#9a3412}
+.plan .features li{margin:.2rem 0}
+
+/* WHAT WE DO */
+.wedo{grid-template-columns:1fr}
+@media(min-width:980px){ .wedo{grid-template-columns:repeat(3,1fr)} }
+.feature{position:relative;overflow:hidden}
+.feature .icon{width:40px;height:40px;display:inline-block;margin-bottom:.35rem}
+.feature p{color:#48556a}
+.feature.accent{border-color:#bfdbfe;background:linear-gradient(180deg,#eff6ff,#ffffff)}
+
+/* ABOUT — standout ribbon/card */
+.about-wrap{position:relative}
+.ribbon{position:absolute;top:-18px;left:0;display:inline-flex;align-items:center;gap:.6rem;
+  background:linear-gradient(120deg,#991b1b,#dc2626 60%,#ef4444);color:#fff;
+  padding:.5rem .85rem;border-radius:12px;box-shadow:0 8px 18px rgba(220,38,38,.35);font-weight:900;letter-spacing:.3px}
+.ribbon svg{filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+.about-card{background:linear-gradient(120deg, #ffffff 0%, #f8fafc 60%, #eff6ff 100%);
+  border:2px solid #bfdbfe;border-radius:16px;padding:24px;box-shadow:0 12px 28px rgba(30,64,175,.15)}
+.about-card h3{margin-top:6px}
+.about-grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:980px){ .about-grid{grid-template-columns:1.2fr .8fr} }
+.big-claim{font-size:1.25rem;color:#1e3a8a;font-weight:800;margin:.4rem 0 0}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.35rem}
+.badge-outline{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .6rem;border-radius:999px;
+  border:1px dashed #1e3a8a;color:#1e3a8a;background:#fff}
+
+/* FORMS */
+label{display:block;font-weight:600;margin:.6rem 0 .25rem}
+input,textarea,select{width:100%;padding:.7rem .8rem;border:1px solid #d1d5db;border-radius:10px;background:#fff;font-size:1rem}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* FOOTER */
+footer{padding:24px 0;color:#475569;border-top:1px solid var(--border);background:#fff}
+
+/* UTIL */
+.hidden{display:none !important}
+.success{background:linear-gradient(120deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:16px}
+.badge-chip{display:inline-block;padding:.25rem .5rem;border-radius:999px;background:#eff6ff;color:#1e3a8a;font-size:.8rem;margin-right:.35rem}
+.small{font-size:.92rem;color:#64748b}
+
+/* Added by helper: /* footer/link alignment and nav fixes */
+footer .copyright { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; align-items:center; }
+footer .copyright a { text-decoration: underline; }
+
+</style>
+
+
+<style>
+/* Corner placement for Premium NEW badge */
+.plan.plan-premium{position:relative; overflow:visible;}
+.badge-premium-corner{position:absolute; top:-18px; right:-18px; z-index:10; pointer-events:none;}
+/* Improve desktop overlap with "Weekly service" chip */
+@media (min-width: 900px){
+  .plan.plan-premium .tag{margin-top:8px;}
+}
+</style>
+<style>
+/* NEW badge (enforced black with white text) */
+.badge-new{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 8px;border-radius:999px;background:#000 !important;color:#fff !important;line-height:1;border:none !important;box-shadow:none !important;text-shadow:none !important;}
+.badge-new .txt{font-weight:800;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:#fff !important;text-shadow:none !important;-webkit-text-stroke:0 !important;}
+</style>
+
+
+
+<!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX8B9"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -13,50 +173,525 @@
   gtag('js', new Date());
   gtag('config', 'G-E1XJNKX8B9');
 </script>
+
+
+
+
+
+
+<style>
+/* NEW badge (enforced black with white text) */
+.badge-new{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 8px;border-radius:999px;background:#000 !important;color:#fff !important;line-height:1;border:none !important;box-shadow:none !important;text-shadow:none !important;}
+.badge-new .txt{font-weight:800;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:#fff !important;text-shadow:none !important;-webkit-text-stroke:0 !important;}
+</style>
+
+<style>
+/* Desktop: keep NEW badge clear of 'Weekly service' tag */
+@media (min-width: 900px){
+  .plan-premium h3{ margin-right: 120px; display:flex; align-items:center; gap:8px; }
+}
+</style>
 </head>
-<body>
-  <nav class="nav">
-    <div><a href="/">CurbEase</a></div>
-    <div class="desktop-only">
-      <a href="/#pricing">Subscribe</a>
-      <a href="/mission.html">Mission</a>
-      <a href="/admin-access.html">Admin</a>
+<body data-places-key="AIzaSyCps2ETb39sNYO7ZSZDiCsxKhNtDIp4soQ">
+<nav aria-label="Primary">
+  <div class="container inner">
+    <a class="brand" href="#" aria-label="Home">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='64' fill='%231e3a8a'/%3E%3Cpath d='M20 70l24-24 16 16 28-28 20 20v28H20z' fill='%23fff'/%3E%3C/svg%3E" class="logo" alt="CurbEase logo">
+      <div><div class="badge">CurbEase Bin Valet</div><small class="sub">Prosper • Light Farms</small></div>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">Menu</button>
+    <div class="nav-main">
+      <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#subscribe">Subscribe</a><a href="/mission.html">Mission</a>
+      <a href="#about">About</a><a href="#account">Account</a><a href="#faq">FAQ</a><a href="#contact-us">Contact</a>
     </div>
-    <div class="mobile-only">
-      <a class="btn" href="/admin-access.html">Admin</a>
+    <div class="actions">
+      <a class="btn btn-primary" href="#pricing">See plans</a>
+      
     </div>
-  </nav>
-  <header class="container">
-    <h1 style="font-size:2rem; margin:.2rem 0;">Weekly Trash & Recycle Bin Curbside Service</h1>
-    <p>$5/week · Light Farms · Celina, TX</p>
-  </header>
-  <section class="container" id="pricing">
-    <h2>Plans</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Basic</h3>
-        <p>Once-a-week curbside rollout & return.</p>
-        <p><strong>$5/week</strong></p>
-        <a class="btn fill" href="#" aria-label="Subscribe Basic">Subscribe</a>
+  </div>
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="group">
+        <a class="item" href="#services">Services</a><a class="item" href="#pricing">Pricing</a>
+        <a class="item" href="#subscribe">Subscribe</a><a class="item" href="/mission.html">Mission</a><a class="item" href="#about">About</a>
+        <a class="item" href="#account">Account</a><a class="item" href="#faq">FAQ</a><a class="item" href="#contact-us">Contact</a>
       </div>
-      <div class="card">
-        <h3>Standard</h3>
-        <p>Twice-a-week rollout & return (when applicable).</p>
-        <p><strong>$7/week</strong></p>
-        <a class="btn fill" href="#" aria-label="Subscribe Standard">Subscribe</a>
+      <div class="actions" style="margin-top:12px">
+        <a class="btn btn-primary" href="#pricing">See plans</a>
+        
       </div>
-      <div class="card">
-        <div style="display:flex; align-items:center; justify-content:space-between;">
-          <h3>Premium</h3>
-          <span class="badge new">NEW</span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container wrap">
+    <div>
+      <h1>Bin day, handled.</h1>
+      <p>We roll your bins to the curb the evening before pickup and return them after collection — so you don’t have to.</p>
+      <p class="trust-badge" aria-label="Trust & safety">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="rgba(255,255,255,.95)" stroke-width="1.7" fill="rgba(220,38,38,.18)"/>
+        </svg>
+        <span class="tb-item"><strong>Law‑enforcement owned</strong></span><span class="dot" aria-hidden="true"></span><span class="tb-item">Background‑checked team</span>
+      </p>
+      <div class="donate-badge" aria-label="Donation statement">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2l3 2h5v5l2 3-2 3v5h-5l-3 2-3-2H4v-5L2 12l2-3V4h5l3-2z"/>
+        </svg>
+        A portion of every subscription supports <span class="subtext">Wounded Warrior Project</span>
+      </div>
+    </div>
+    <!-- Realistic green + blue bins with fixed recycle icon -->
+    <svg id="bins-hero" viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trash and recycling bins">
+      <defs>
+        <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#15803d"/>
+        </linearGradient>
+        <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/>
+        </linearGradient>
+        <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="rgba(255,255,255,.35)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/>
+        </linearGradient>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="6"/>
+          <feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <ellipse cx="280" cy="320" rx="210" ry="24" fill="rgba(0,0,0,.25)"/>
+      <!-- Green bin -->
+      <g transform="translate(110,60)" filter="url(#shadow)">
+        <rect x="0" y="40" width="150" height="200" rx="14" fill="url(#gGreen)"/>
+        <rect x="18" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="36" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="54" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="72" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="90" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="108" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
+        <rect x="-6" y="18" width="162" height="28" rx="8" fill="#065f46"/>
+        <rect x="8" y="12" width="134" height="12" rx="6" fill="#10b981"/>
+        <circle cx="24" cy="254" r="16" fill="#111827"/><circle cx="24" cy="254" r="8" fill="#9ca3af"/>
+        <circle cx="126" cy="254" r="16" fill="#111827"/><circle cx="126" cy="254" r="8" fill="#9ca3af"/>
+        <path d="M10,50 h50 a8,8 0 0 1 8,8 v140 a20,20 0 0 1-20,20 h-10 a18,18 0 0 1-18-18 V58 a8,8 0 0 1 8-8z" fill="url(#shine)" opacity=".35"/>
+      </g>
+      <!-- Blue bin with centered recycle symbol -->
+      <g transform="translate(300,50)" filter="url(#shadow)">
+        <rect x="0" y="40" width="150" height="210" rx="14" fill="url(#gBlue)"/>
+        <g transform="translate(-4,18) rotate(-6)">
+          <rect x="0" y="0" width="162" height="28" rx="8" fill="#1e3a8a"/>
+          <rect x="12" y="-6" width="134" height="12" rx="6" fill="#60a5fa"/>
+        </g>
+        <text x="75" y="152" text-anchor="middle" font-size="56" fill="#ffffff" opacity=".95">♻︎</text>
+        <circle cx="24" cy="264" r="16" fill="#111827"/><circle cx="24" cy="264" r="8" fill="#9ca3af"/>
+        <circle cx="126" cy="264" r="16" fill="#111827"/><circle cx="126" cy="264" r="8" fill="#9ca3af"/>
+        <path d="M10,60 h48 a8,8 0 0 1 8,8 v130 a20,20 0 0 1-20,20 h-8 a18,18 0 0 1-18-18 V68 a8,8 0 0 1 8-8z" fill="url(#shine)" opacity=".28"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<main id="main">
+  <section id="services"><div class="container">
+    <a id="howitworks"></a><h2>What we do</h2>
+    <p class="lead">Premium, subscription‑based “bin valet” built for Light Farms and Prosper. We handle curb day end‑to‑end with reliable reminders and friendly service.</p>
+
+    <div class="grid wedo">
+      <div class="card feature accent">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="17" rx="3" stroke="#1e3a8a" stroke-width="2"/><path d="M8 2v4M16 2v4M3 10h18" stroke="#1e3a8a" stroke-width="2"/><rect x="7" y="13" width="4" height="3" rx="1" fill="#2563eb"/><rect x="13" y="13" width="4" height="3" rx="1" fill="#dc2626"/></svg>
+        <h3>Set‑out & return</h3>
+        <p>We roll bins to the curb the evening before pickup and return them to your yard the same day after collection.</p>
+      </div>
+      <div class="card feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5 12 4l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8.5Z" stroke="#2563eb" stroke-width="2"/><path d="M9 22v-6h6v6" stroke="#2563eb" stroke-width="2"/></svg>
+        <h3>Gate & driveway friendly</h3>
+        <p>Long drive? Back gate? We’ve got it. Leave quick notes during checkout so we can access bins easily.</p>
+      </div>
+      <div class="card feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="14" rx="3" stroke="#2563eb" stroke-width="2"/><path d="M7 12h10M7 9h10" stroke="#2563eb" stroke-width="2"/></svg>
+        <h3>Reminders & travel holds</h3>
+        <p>We’ll nudge you before pickup day. Traveling? Pause any week with a quick message or via your portal.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ABOUT (standout) -->
+  <section id="about" style="padding-top:0"><div class="container about-wrap">
+    <div class="ribbon" aria-label="Badge: Police‑officer owned">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2l3 2h5v5l2 3-2 3v5h-5l-3 2-3-2H4v-5L2 12l2-3V4h5l3-2z"/>
+      </svg>
+      POLICE‑OFFICER OWNED
+    </div>
+    <div class="about-card">
+      <div class="about-grid">
+        <div>
+          <h3>About & Standards</h3>
+          <p class="big-claim">Run by an active North Texas police officer. That means rigorous vetting, punctuality, and respectful service in your neighborhood.</p>
+          <div class="badges">
+            <span class="badge-outline">Background‑checked staff</span>
+            <span class="badge-outline">Strict hiring standards</span>
+            <span class="badge-outline">Secure access handling</span>
+          </div>
         </div>
-        <p>Priority reminders, text updates, and holiday adjustments.</p>
-        <p><strong>$9/week</strong></p>
-        <a class="btn fill" href="#" aria-label="Subscribe Premium">Subscribe</a>
+        <div>
+          <p><strong>About</strong><br>
+CurbEase Bin Valet was founded to make life easier for our neighbors while keeping our community looking its best.
+As a law‑enforcement–owned and family‑run business, we value trust, dependability, and service. Every pickup is done
+with professionalism and care, because small details make a big difference in the pride we share for our city.</p>
+<p>We’re also committed to giving back. A portion of our efforts supports the <em>Wounded Warrior Project</em>,
+honoring those who have sacrificed for our freedom. Serving our community means more than curbside—it’s about
+contributing to a cleaner, safer, and stronger place for everyone.</p>
+<h4>Our Standards</h4>
+<ul class="features">
+            <li>Background‑checked team members</li>
+            <li>Clear communication and text reminders</li>
+            <li>Secure handling of gate codes and notes</li>
+            <li>Neighborhood‑friendly conduct</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </section>
-  <footer class="footer"><div class="container">© 2025 CurbEase. All rights reserved.</div></footer>
-  <script src="/fixes.js"></script>
+  </div></section>
+
+  <section id="pricing"><div class="container"><h2>Pricing</h2><p class="lead">Weekly service — bins are handled every pickup week. A portion of every subscription supports Wounded Warrior Project.</p>
+    <div class="grid pricing">
+      <div class="card plan plan-basic">
+        <div class="tag">Weekly service</div>
+        <h3>Basic</h3>
+        <div class="price">$30<span class="small">/mo</span></div>
+        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out only (2 bins)</li><li>Trash + Recycling</li><li>Text notifications</li></ul>
+        <a class="btn btn-outline sub-btn" data-plan="basic" href="https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+      <div class="card plan plan-standard" style="border:2px solid #2563EB">
+        <div class="tag">Weekly service</div>
+        <h3>Standard</h3>
+        <div class="price">$45<span class="small">/mo</span></div>
+        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out + Return (2 bins)</li><li>Travel holds included</li><li>Priority text support</li></ul>
+        <a class="btn btn-primary sub-btn" data-plan="standard" href="https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+      <div class="card plan plan-premium">
+        <div class="tag">Weekly service</div>
+        <h3>Premium</h3>
+<span class="badge-new badge-premium-corner"><span class="txt">NEW</span></span>
+        <div class="price">$60<span class="small">/mo</span></div>
+        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out + Return (up to 4 bins)</li><li>Gate/long driveway access</li><li>Priority support</li><li><strong>One free trash &amp; recycle bin cleaning per month</strong></li></ul>
+        <a class="btn btn-outline sub-btn" data-plan="premium" href="https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" target="_blank" rel="noopener">Subscribe</a>
+      </div>
+      <div class="card plan plan-business">
+        <div class="tag">Weekly service</div>
+        <h3>Business (10+ bins)</h3>
+        <div class="price">Custom<span class="small"> /mo</span></div>
+        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Weekly set‑out & return</li><li>Multi‑location friendly</li><li>Flexible scheduling</li></ul>
+        <a class="btn btn-outline" href="#biz" aria-label="Request business quote">Request quote</a>
+      </div>
+    </div>
+    <div style="margin-top:10px">
+      <span class="badge-chip">Apple Pay</span>
+      <span class="badge-chip">Google Pay</span>
+      <span class="badge-chip">Credit/Debit</span>
+    </div>
+  </div></section>
+
+  <section id="subscribe"><div class="container">
+    <h2>Subscribe online</h2>
+    <p class="lead">Secure hosted checkout. We accept cards, Apple Pay and Google Pay.</p>
+    <div class="card" style="margin-bottom:14px">
+      <label for="subscribe-address">Optional: Service address (helps us prefill later)</label>
+      <input id="subscribe-address" placeholder="Start typing your address…">
+      <p class="small">This saves locally on your device. You’ll still confirm details in the portal.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(3, minmax(0,1fr))">
+      <a class="btn btn-outline sub-btn" data-plan="basic" href="https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02" target="_blank" rel="noopener">Basic – $30/mo</a>
+      <a class="btn btn-primary sub-btn" data-plan="standard" href="https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03" target="_blank" rel="noopener">Standard – $45/mo</a>
+      <a class="btn btn-outline sub-btn" data-plan="premium" href="https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" target="_blank" rel="noopener">Premium – $60/mo</a>
+    </div>
+  </div></section>
+
+  <section id="account"><div class="container">
+    <h2>Manage your subscription</h2>
+    <div class="card">
+      <p>Use the Customer Portal to update payment method, view invoices, or cancel/pause service.</p>
+      <p><a class="btn btn-outline" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00" target="_blank" rel="noopener">Open Customer Portal</a></p>
+    </div>
+
+    <div class="card" id="update-form-card">
+      <h3>Update service details</h3>
+      <p class="lead">Need to change your service address or where we find your bins? Submit this quick form—no login required.</p>
+
+      <button id="toggle-update" class="btn btn-outline" type="button" style="margin-bottom:10px">Update Service Details</button>
+<form name="service-updates" hidden method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?form=service-updates#update-thanks">
+        <input type="hidden" name="form-name" value="service-updates">
+        <input type="hidden" name="channel" id="channel-field" value="">
+        <p style="display:none"><label>Don’t fill this out: <input name="bot-field"></label></p>
+
+        <label for="name">Full name</label>
+        <input id="name" name="name" required placeholder="Jane Doe">
+
+        <label for="email">Email used at checkout</label>
+        <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+        <div class="row">
+          <div style="flex:1">
+            <label for="addr1">Street address</label>
+            <input id="addr1" name="address_line1" required placeholder="123 Main St">
+          </div>
+          <div style="width:180px">
+            <label for="addr2">Apt/Unit (opt.)</label>
+            <input id="addr2" name="address_line2" placeholder="Unit #">
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1"><label for="city">City</label><input id="city" name="city" required placeholder="Prosper"></div>
+          <div style="width:110px"><label for="state">State</label><input id="state" name="state" required placeholder="TX"></div>
+          <div style="width:140px"><label for="zip">ZIP</label><input id="zip" name="postal_code" required placeholder="75078"></div>
+        </div>
+
+        <label for="binloc">Where are the bins located?</label>
+        <textarea id="binloc" name="bin_location" required placeholder="e.g., side yard behind wooden gate; keypad code 1234; dog in backyard."></textarea>
+
+        <label for="pickup">Pickup day (if known)</label>
+        <select id="pickup" name="pickup_day">
+          <option value="">Select…</option>
+          <option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option>
+        </select>
+
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-primary" type="submit">Submit update</button>
+          <a class="btn btn-outline" href="mailto:curbeasevalet@gmail.com">Or email us</a>
+        </div>
+        <p class="muted">We’ll update your account in Stripe and confirm by email/text.</p>
+      </form>
+    </div>
+
+    <div id="biz" class="card">
+      <h3>Business request (10+ bins)</h3>
+      <p class="lead">Tell us about your site and bin count—we’ll send a quote the same day.</p>
+      <button id="toggle-biz" class="btn btn-outline" type="button" style="margin-bottom:10px">Business Request (10+ bins)</button>
+<form name="business-request" hidden method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?form=business-request#biz-thanks">
+        <input type="hidden" name="form-name" value="business-request">
+        <input type="hidden" name="channel" id="channel-field-biz" value="">
+        <p style="display:none"><label>Don’t fill this out: <input name="bot-field"></label></p>
+
+        <label for="bizname">Business/Community name</label>
+        <input id="bizname" name="business_name" required placeholder="Example Apartments">
+
+        <div class="row">
+          <div style="flex:1"><label for="bincount">Approx. # of bins</label><input id="bincount" name="bin_count" required placeholder="e.g., 12"></div>
+          <div style="flex:1"><label for="freq">Frequency</label><select id="freq" name="frequency"><option>Weekly</option><option>Twice weekly</option></select></div>
+        </div>
+
+        <label for="bizaddr">Service address</label>
+        <input id="bizaddr" name="service_address" required placeholder="123 Main St, Prosper TX">
+
+        <label for="contact">Contact name & phone</label>
+        <input id="contact" name="contact" required placeholder="Jane Doe, (469) 123‑4567">
+
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" placeholder="Access details, preferred days, etc."></textarea>
+
+        <div class="row" style="margin-top:10px">
+          <button class="btn btn-primary" type="submit">Request quote</button>
+          <a class="btn btn-outline" href="mailto:curbeasevalet@gmail.com?subject=Business%20quote%20request%20(10%2B%20bins)&body=Business%20name%3A%0ABin%20count%3A%0AService%20address%3A%0AContact%3A%0ANotes%3A%0A">Or email details</a>
+        </div>
+      </form>
+    </div>
+  </div></section>
+
+  <section id="faq"><div class="container"><h2>FAQ</h2>
+    <p><b>Who owns CurbEase Bin Valet?</b> We’re law‑enforcement owned and operated locally. Our team is background‑checked and trained.</p>
+    <p><b>Where do you service?</b> Light Farms & Prosper, TX.</p>
+    <p><b>Can I pause while traveling?</b> Yes—pause any week by contacting us or via your Customer Portal.</p>
+  </div></section>
+
+  <section id="contact"><div class="container"><a id="contact-us"></a><h2>Contact</h2>
+    <div class="card"><p><b>Email:</b> <a href="mailto:curbeasevalet@gmail.com">curbeasevalet@gmail.com</a></p>
+    <p><b>Phone:</b> <a href="tel:+14692989495">(469) 298-9495</a></p>
+    <p class="small">Local business in Prosper, TX.</p>
+    <p></p></div></div></section>
+
+  <section id="thank-you" class="hidden"><div class="container">
+    <div class="success">
+      <h2 style="margin:0 0 6px">Thanks — your subscription is set!</h2>
+      <p style="opacity:.95">You’ll get a confirmation email from Stripe. We’ll text or email you before pickup day.</p>
+      <p><a class="btn btn-outline" href="#account">Update service details</a> <a class="btn btn-outline" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00" target="_blank" rel="noopener">Customer Portal</a></p>
+    </div>
+  </div></section>
+
+  <section id="update-thanks" class="hidden"><div class="container">
+    <div class="success">
+      <h2 style="margin:0 0 6px">Thanks—got your update!</h2>
+      <p style="opacity:.95">We’ll update your account and confirm shortly. If anything’s urgent, text us at <a href="tel:+14692989495" style="color:#e2e8f0">(469) 298-9495</a>.</p>
+    </div>
+  </div></section>
+
+  <section id="biz-thanks" class="hidden"><div class="container">
+    <div class="success">
+      <h2 style="margin:0 0 6px">Thanks—business request received!</h2>
+      <p style="opacity:.95">We’ll reply the same day with a quote and next steps.</p>
+    </div>
+  </div></section>
+</main>
+
+
+<footer>
+  <div class="container">
+    <p class="copyright">© 2025 CurbEase Bin Valet • Law‑enforcement owned • 
+      <a href="https://billing.stripe.com/p/login/8wM4iZ5dA6AZ9zu9AA" target="_blank" rel="noopener">Customer Portal</a> • 
+      <a href="/mission.html">Mission</a> • 
+      <a href="/admin-access.html">Admin</a>
+    </p>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  function $(s,r){return (r||document).querySelector(s)}
+  function $all(s,r){return Array.from((r||document).querySelectorAll(s))}
+  function getParam(name){return new URLSearchParams(location.search).get(name)}
+  function closeMenu(){ const mm=$('#mobile-menu'); if(!mm) return; mm.hidden=true; document.body.style.removeProperty('overflow'); }
+
+  const CHANNELS = {
+    eddm: {medium:'postcard'}, door: {medium:'doordrop'}, yard: {medium:'outdoor'},
+    nextdoor: {medium:'social'}, nextdoor_ad: {medium:'paid_social'}, fb_group: {medium:'social'},
+    fb_ads: {medium:'paid_social'}, gbp: {medium:'listing'}, email: {medium:'email'},
+    sms: {medium:'sms'}, referral: {medium:'referral'}, gads: {medium:'paid_search'}, website: {medium:'onsite'}
+  };
+
+  const PLAN_URLS = { basic: "https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02", standard: "https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03", premium: "https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" };
+
+  function withUTM(base, channel, plan){
+    const ch = CHANNELS[channel] ? channel : 'website';
+    const medium = CHANNELS[ch].medium;
+    const u = new URL(base);
+    u.searchParams.set('utm_source', ch);
+    u.searchParams.set('utm_medium', medium);
+    u.searchParams.set('utm_campaign', 'lf_launch_2025q3');
+    if (plan) u.searchParams.set('utm_content', plan);
+    return u.toString();
+  }
+
+  function applyUTMs(){
+    const ch = (getParam('c')||'website').toLowerCase();
+    $all('.sub-btn').forEach(a=>{ const plan = (a.getAttribute('data-plan')||'').toLowerCase(); const base = PLAN_URLS[plan]; if(base) a.href = withUTM(base, ch, plan); });
+    const chField = $('#channel-field'); if(chField) chField.value = ch;
+    const chFieldBiz = $('#channel-field-biz'); if(chFieldBiz) chFieldBiz.value = ch;
+  }
+
+  function loadPlacesIfKey(){
+    const key = document.body.getAttribute('data-places-key') || '';
+    if(!key) return;
+    const s = document.createElement('script');
+    s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&libraries=places&callback=__placesReady';
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  }
+  window.__placesReady = function(){ try { initAutocomplete(); } catch(e) { console.warn('Places init error', e); } };
+
+  function parseAddressComponents(ac){
+    const out = { line1:'', city:'', state:'', zip:'' };
+    const comps = ac || [];
+    let num = '', route = '';
+    comps.forEach(c=>{ const t = c.types || []; if(t.includes('street_number')) num = c.long_name; if(t.includes('route')) route = c.long_name;
+      if(t.includes('locality')) out.city = c.long_name; if(t.includes('postal_town') && !out.city) out.city = c.long_name;
+      if(t.includes('administrative_area_level_1')) out.state = c.short_name; if(t.includes('postal_code')) out.zip = c.long_name; });
+    out.line1 = (num && route) ? (num + ' ' + route) : (route || num || ''); return out;
+  }
+
+  function bindAutocomplete(input, onSelect){
+    if(!window.google || !google.maps || !google.maps.places) return;
+    const ac = new google.maps.places.Autocomplete(input, { fields: ['address_components','geometry','name'], componentRestrictions: { country: ['us'] } });
+    try { const sw = new google.maps.LatLng(33.16,-96.86); const ne = new google.maps.LatLng(33.28,-96.72); ac.setBounds(new google.maps.LatLngBounds(sw, ne)); } catch(e){}
+    ac.addListener('place_changed', function(){ const place = ac.getPlace(); const parsed = parseAddressComponents(place.address_components || []); if(typeof onSelect === 'function') onSelect(parsed); });
+  }
+
+  function saveLocalAddress(a){ try { localStorage.setItem('ce_line1', a.line1 || ''); localStorage.setItem('ce_city', a.city || ''); localStorage.setItem('ce_state', a.state || ''); localStorage.setItem('ce_zip', a.zip || ''); } catch(e){} }
+  function loadLocalAddress(){ try { return { line1: localStorage.getItem('ce_line1') || '', city: localStorage.getItem('ce_city') || '', state: localStorage.getItem('ce_state') || '', zip: localStorage.getItem('ce_zip') || '' }; } catch(e){ return {line1:'',city:'',state:'',zip:''}; } }
+
+  function prefillFromLocal(){
+    const a = loadLocalAddress();
+    if(a.line1) { const f=$('#addr1'); if(f) f.value=a.line1; }
+    if(a.city) { const f=$('#city'); if(f) f.value=a.city; }
+    if(a.state){ const f=$('#state'); if(f) f.value=a.state; }
+    if(a.zip)  { const f=$('#zip');   if(f) f.value=a.zip; }
+    const s=$('#subscribe-address'); if(s && a.line1) s.value = [a.line1, a.city, a.state, a.zip].filter(Boolean).join(', ');
+    const b=$('#bizaddr'); if(b && a.line1) b.value = [a.line1, a.city, a.state, a.zip].filter(Boolean).join(', ');
+  }
+
+  function initAutocomplete(){
+    const sub = $('#subscribe-address'); if(sub) bindAutocomplete(sub, function(a){ saveLocalAddress(a); prefillFromLocal(); });
+    const addr1 = $('#addr1'); if(addr1) bindAutocomplete(addr1, function(a){ if(a.line1) addr1.value = a.line1; const city=$('#city'), state=$('#state'), zip=$('#zip'); if(city) city.value = a.city || city.value; if(state) state.value = a.state || state.value; if(zip) zip.value = a.zip || zip.value; saveLocalAddress(a); });
+    const biz = $('#bizaddr'); if(biz) bindAutocomplete(biz, function(a){ if(a.line1 || a.city) biz.value = [a.line1,a.city,a.state,a.zip].filter(Boolean).join(', '); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const toggle=$('.menu-toggle'); const menu=$('#mobile-menu');
+    if(toggle && menu){ toggle.addEventListener('click', function(e){ e.stopPropagation(); const expanded=this.getAttribute('aria-expanded')==='true'; this.setAttribute('aria-expanded', !expanded); menu.hidden = expanded; if(!expanded){ document.body.style.overflow='hidden'; } else { document.body.style.removeProperty('overflow'); } });
+      menu.addEventListener('click', function(e){ if(e.target===menu) closeMenu(); });
+      $all('.mobile-menu .item, .mobile-menu .btn', menu).forEach(el=> el.addEventListener('click', closeMenu));
+      document.addEventListener('click', function(e){ const within = menu.contains(e.target) || (toggle && toggle.contains(e.target)); if(!within) closeMenu(); }, true);
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+    }
+    function revealAnchors(){ const hash = (location.hash || '').toLowerCase();
+      if(hash === '#thank-you'){ $('#thank-you')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#thank-you').offsetTop - 60, behavior: 'smooth' }); }
+      if(hash === '#update-thanks'){ $('#update-thanks')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#update-thanks').offsetTop - 60, behavior: 'smooth' }); }
+      if(hash === '#biz-thanks'){ $('#biz-thanks')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#biz-thanks').offsetTop - 60, behavior: 'smooth' }); }
+    }
+    revealAnchors(); window.addEventListener('hashchange', revealAnchors);
+    prefillFromLocal(); applyUTMs(); loadPlacesIfKey();
+  });
+})();
+</script>
+
+<script>
+// Collapsible forms + ensure menu script keeps running
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    const upBtn = document.getElementById('toggle-update');
+    const upForm = document.querySelector('form[name="service-updates"]');
+    if(upBtn && upForm){
+      upBtn.addEventListener('click', ()=>{
+        upForm.hidden = !upForm.hidden;
+        upBtn.textContent = upForm.hidden ? 'Update Service Details' : 'Hide Update Form';
+      });
+    }
+    const bizBtn = document.getElementById('toggle-biz');
+    const bizForm = document.querySelector('form[name="business-request"]');
+    if(bizBtn && bizForm){
+      bizBtn.addEventListener('click', ()=>{
+        bizForm.hidden = !bizForm.hidden;
+        bizBtn.textContent = bizForm.hidden ? 'Business Request (10+ bins)' : 'Hide Business Form';
+      });
+    }
+  }catch(e){ console.error(e); }
+});
+</script>
+
+
+<script>
+(function(){
+  var ADMIN_PASS = "AmwTrw@2425";
+  var link = document.getElementById('footer-admin-link');
+  if (link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var input = prompt('Enter admin password:');
+      if (input && input === ADMIN_PASS){
+        try { sessionStorage.setItem('ce_admin_ok','1'); } catch(e){}
+        window.location.href = '/admin.html';
+      } else if (input !== null) {
+        alert('Incorrect password.');
+      }
+    });
+  }
+})();
+</script>
+
+<a id="mission"></a>
+<a id="freepickup"></a>
+<a id="savetime"></a>
 </body>
 </html>

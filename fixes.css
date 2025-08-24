@@ -1,28 +1,45 @@
+/* --- CurbEase patch: small, safe overrides --- */
 
-* { box-sizing: border-box; }
-html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:#0f172a; }
-a { color:#0ea5e9; text-decoration:none; }
-a:hover { text-decoration:underline; }
-.container { max-width: 1100px; margin: 0 auto; padding: 1.25rem; }
-.btn { display:inline-block; padding: .6rem 1rem; border-radius: .6rem; border:1px solid #0ea5e9; }
-.btn.fill { background:#0ea5e9; color:white; }
-.nav { display:flex; gap:1rem; align-items:center; justify-content:space-between; padding: .75rem 1.25rem; border-bottom: 1px solid #e2e8f0; position:sticky; top:0; background:white; z-index:20; }
-.nav a { font-weight:600; }
-.badge { font-size:.75rem; font-weight:700; border-radius:9999px; padding:.25rem .5rem; }
-.badge.new { background:black; color:white; }
-.grid { display:grid; gap:1rem; grid-template-columns: repeat(3, minmax(0,1fr)); }
-.card { border:1px solid #e5e7eb; border-radius:1rem; padding:1rem; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
-.footer { border-top:1px solid #e2e8f0; margin-top:3rem; padding:1rem; text-align:center; color:#64748b; }
-.hidden{display:none;}
-.mobile-only{ display:none; }
-@media (max-width: 768px){
-  .grid{ grid-template-columns: 1fr; }
-  .mobile-only{ display:inline-block; }
-  .desktop-only{ display:none; }
+/* Premium 'NEW' pill */
+.badge-new {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  z-index: 2;
 }
-.spinner{ width:48px; height:48px; border-radius:9999px; border:4px solid #e2e8f0; border-top-color:#0ea5e9; animation:spin 1s linear infinite; margin:2rem auto;}
-@keyframes spin{ to{ transform:rotate(360deg);} }
-.table{ width:100%; border-collapse: collapse; }
-.table th,.table td{ border:1px solid #e5e7eb; padding:.5rem; text-align:left; font-size:.95rem; }
-.table th{ background:#f8fafc; }
-.notice{ background:#ecfeff; border:1px solid #a5f3fc; padding:.75rem; border-radius:.75rem; }
+
+/* Ensure plan cards allow badge to overflow if needed */
+.plan, .plan-card, .pricing-card, .tier, .card-premium {
+  position: relative;
+  overflow: visible;
+}
+
+/* Footer alignment */
+.site-footer .links, .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.site-footer .links a, .footer-links a { display:inline-block; line-height:1.4; }
+
+/* Mobile menu Mission link color/alignment */
+.mobile-menu a[href*="mission"] { color: inherit !important; display: block; }
+
+/* Hide header Manage Subscription pill if present in header bar */
+.header a, .topbar a, header a {
+  /* no-op here; JS will hide the specific 'Manage Subscription' text in header */
+}
+
+/* Center footer text to align links on one line */
+footer { text-align:center; }

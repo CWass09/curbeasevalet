@@ -1,29 +1,247 @@
+
 <!doctype html>
+<div id="app-fallback" style="padding:20px;font-family:Arial,sans-serif">Loading admin…</div>
+
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Admin Dashboard · CurbEase</title>
-<link rel="stylesheet" href="/fixes.css"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Dashboard • CurbEase</title>
+<style>
+:root{
+  --ink:#0f172a; --muted:#475569; --bg:#f6f9fc; --panel:#fff; --border:#e2e8f0;
+  --ok:#16a34a; --no:#dc2626; --pill:#0ea5e9;
+  --rowA:#ffffff; --rowB:#fbfdff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:14px 16px}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:8px 0 14px}
+h1{margin:0;font-size:1.55rem}
+.actions{display:flex;gap:10px}
+.btn{border:1px solid var(--border);border-radius:10px;background:#fff;padding:.55rem .85rem;cursor:pointer;transition:box-shadow .15s ease}
+.btn:hover{box-shadow:0 6px 18px rgba(2,6,23,.08)}
+.search{flex:1;display:flex;gap:8px;align-items:center}
+.search input{width:100%;border:1px solid var(--border);border-radius:10px;padding:.55rem .8rem;background:#fff}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;box-shadow:0 6px 22px rgba(2,6,23,.06);overflow:hidden}
+.table{width:100%;border-collapse:collapse}
+thead th{position:sticky;top:0;background:#f8fafc;color:#334155;font-weight:700;font-size:.86rem;border-bottom:1px solid var(--border);padding:12px 14px;text-align:left;cursor:pointer}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border)}
+tbody tr:nth-child(odd) td{background:var(--rowA)}
+tbody tr:nth-child(even) td{background:var(--rowB)}
+tbody tr:hover td{background:#f3f8ff}
+.badge{font-weight:700;padding:.2rem .6rem;border-radius:999px;display:inline-block;border:1px solid transparent}
+.badge.ok{background:rgba(22,163,74,.12);color:#065f46;border-color:rgba(16,185,129,.22)}
+.badge.no{background:rgba(220,38,38,.12);color:#991b1b;border-color:rgba(248,113,113,.25)}
+.tier{display:inline-block;padding:.15rem .5rem;border-radius:6px;border:1px solid var(--border)}
+.tier.basic{background:#f8fafc}
+.tier.standard{background:#eef6ff;border-color:#bfdbfe;color:#1d4ed8}
+.tier.premium{background:#fff7ed;border-color:#fed7aa;color:#c2410c}
+.tier.business{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+.meta{display:flex;gap:10px;align-items:center;margin:6px 0 12px;color:var(--muted)}
+.small{font-size:.9rem}
+</style>
+<style>
 </head>
 <body>
-  <nav class="nav">
-    <div><a href="/">← Back to site</a></div>
-    <div><button class="btn" onclick="CurbEase.logout()">Logout</button></div>
-  </nav>
-  <main class="container">
+<script>
+try{ if(sessionStorage.getItem("ce_admin_ok")!=="1"){ location.replace("/admin-access.html"); } }
+catch(e){ location.replace("/admin-access.html"); }
+</script>
+
+
+\1
+<script>
+// Guard: if not unlocked, bounce to lock screen
+try {
+  if (sessionStorage.getItem('ce_admin_ok') !== '1') {
+    location.replace('/admin/');
+  }
+} catch (e) {
+  location.replace('/admin/');
+}
+</script>
+
+
+</div>
+
+
+
+
+</form>
+    <div id="pw-error" style="color:#dc2626;font-size:13px;margin-top:10px;display:none">Incorrect password. Try again.</div>
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="admin-wrap" style="display:none">
+<template id="admin-content"><div class="wrap">
+  <div class="toolbar">
     <h1>Admin Dashboard</h1>
-    <p class="notice">Data below loads from your Google Sheet CSV.</p>
-    <div id="summary"></div>
-    <div style="overflow:auto; margin-top:1rem;">
-      <table class="table" id="subsTable">
-        <thead><tr id="thead"></tr></thead>
-        <tbody id="tbody"></tbody>
-      </table>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search name, email, address, plan, status…" />
     </div>
-  </main>
-  <script src="/fixes.js"></script>
-  <script src="/fetch-csv.js"></script>
-  <script src="/admin-sheet.js"></script>
+    <div class="actions">
+      <button class="btn" id="export">Download CSV</button>
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn" id="logout">Log out</button>
+    </div>
+  </div>
+  <div class="meta">
+    <div id="stamp" class="small">—</div>
+  </div>
+  <div class="card">
+    <table class="table">
+      <thead id="head">
+        <tr>
+          <th data-k="name">Name</th>
+          <th data-k="email">Email</th>
+          <th data-k="phone">Phone</th>
+          <th data-k="address">Address</th>
+          <th data-k="subscription">Subscription</th>
+          <th data-k="bin">Bin Location</th>
+          <th data-k="status">Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  var out=document.getElementById('logout');
+  if(out){
+    out.addEventListener('click', function(){
+      try{ sessionStorage.removeItem('ce_admin_ok'); }catch(e){}
+    });
+  }
+})();
+</script>
+
+
+
+<script>
+(function(){
+  var ok = false;
+  try { ok = (sessionStorage.getItem('ce_admin_ok') === '1'); } catch(e){ ok = false; }
+  if(!ok){
+    // Try URL token
+    var qs = new URLSearchParams(location.search);
+    var t = qs.get('token');
+    if(t === 'curbease-ok-2425'){ 
+      try { sessionStorage.setItem('ce_admin_ok','1'); } catch(e){}
+      ok = true;
+      try { history.replaceState(null,'', location.pathname); } catch(e){}
+    }
+  }
+  if(!ok){
+    var fb = document.getElementById('app-fallback');
+    if(fb) fb.innerHTML = 'Access locked. <a href="/admin-access.html">Return to password page</a>';
+    else document.write('Access locked. <a href="/admin-access.html">Return to password page</a>');
+    try { setTimeout(function(){ location.replace('/admin-access.html'); }, 1200); } catch(e){ location.replace('/admin-access.html'); }
+    return;
+  }
+  // Unlocked: remove fallback and start app
+  var fb = document.getElementById('app-fallback');
+  if(fb) fb.parentNode.removeChild(fb);
+  try { if (typeof load === 'function') load(); else { var m=document.getElementById('csvTable'); if(m) m.textContent='Admin loaded.'; } } catch(e){ var m=document.getElementById('csvTable'); if(m) m.textContent='Admin loaded.'; }
+})();
+</script>
+
+
+<div id="csvTable" style="margin:16px;font-family:system-ui,Arial">Loading admin data…</div>
+
+
+
+<script>
+// Call the loader directly, and also attach a DOMContentLoaded fallback
+(function(){
+  function run(){ try{ if (typeof loadCSVIntoTable === 'function') loadCSVIntoTable(); }catch(e){} }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR06pT30IfYV7QeGj9OWKxMkZSh_-cQJ1Tp65IsHzc0kyOzwIhNqPN5kaMceMrApjAIJLARDqCjSjhN/pub?output=csv';
+  function parseCSV(text){
+    var rows = [];
+    var cur = "";
+    var out = [];
+    var inQ = false;
+    for (var i=0;i<text.length;i++){ 
+      var ch = text[i];
+      if(ch === '"'){ inQ = !inQ; continue; }
+      if(ch === ',' && !inQ){ out.push(cur); cur=""; continue; }
+      if(ch === '\n' && !inQ){ out.push(cur); rows.push(out); cur=""; out=[]; continue; }
+      if(ch !== '\r') cur += ch;
+    }
+    if(cur.length || out.length){ out.push(cur); rows.push(out); }
+    return rows.filter(function(r){ return r.some(function(c){ return String(c).trim()!==""; }) });
+  }
+  async function loadInline(){
+    var mount = document.getElementById('csvTable');
+    if(!mount) return;
+    try{
+      var res = await fetch(SHEET_CSV, {cache:'no-store'});
+      var text = await res.text();
+      var rows = parseCSV(text);
+      if(rows.length === 0){ mount.textContent = "No rows found."; return; }
+      var head = rows[0];
+      var body = rows.slice(1);
+      var table = document.createElement('table');
+      table.style.width='100%'; table.style.borderCollapse='collapse'; table.style.background='#fff';
+      var thead = document.createElement('thead');
+      var trh = document.createElement('tr');
+      head.forEach(function(h){
+        var th = document.createElement('th');
+        th.textContent = h;
+        th.style.textAlign='left'; th.style.padding='10px 8px'; th.style.borderBottom='1px solid #e5e7eb'; th.style.background='#f8fafc';
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+      var tbody = document.createElement('tbody');
+      body.forEach(function(r){
+        var tr = document.createElement('tr');
+        r.forEach(function(c){
+          var td = document.createElement('td');
+          td.textContent = c;
+          td.style.padding='10px 8px'; td.style.borderBottom='1px solid #f1f5f9';
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(thead); table.appendChild(tbody);
+      mount.innerHTML = ""; mount.appendChild(table);
+    }catch(err){
+      var msg = "Could not load Google Sheet: " + err;
+      try{ var t = await res.text(); if(t) msg += " (" + t.slice(0,120) + "…)"; }catch(x){}
+      mount.textContent = msg;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadInline);
+  else loadInline();
+})();
+</script>
+
 </body>
 </html>
