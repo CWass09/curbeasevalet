@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin Access · CurbEase</title>
+<link rel="stylesheet" href="/fixes.css"/>
+</head>
+<body>
+  <main class="container" style="max-width:520px;">
+    <h1>Admin Access</h1>
+    <p class="notice">Enter the admin password to continue.</p>
+    <form id="adminLogin" autocomplete="off">
+      <label for="pw">Password</label><br/>
+      <input id="pw" type="password" style="width:100%; padding:.6rem; border:1px solid #cbd5e1; border-radius:.6rem; margin:.5rem 0 1rem;" autofocus/>
+      <div style="display:flex; gap:.5rem;">
+        <button class="btn fill" type="submit">Enter</button>
+        <a class="btn" href="/">Cancel</a>
+      </div>
+    </form>
+  </main>
+  <script>
+    const ADMIN_PASSWORD = "AmwTrw@2425";
+    document.getElementById('adminLogin').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const input = document.getElementById('pw').value;
+      if(input && input === ADMIN_PASSWORD){
+        sessionStorage.setItem('CE_AUTH_OK', '1');
+        window.location.href = '/admin.html';
+      } else {
+        alert('Incorrect password.');
+      }
+    });
+  </script>
+  <script src="/fixes.js"></script>
+</body>
+</html>

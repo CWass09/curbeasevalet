@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin Dashboard · CurbEase</title>
+<link rel="stylesheet" href="/fixes.css"/>
+</head>
+<body>
+  <nav class="nav">
+    <div><a href="/">← Back to site</a></div>
+    <div><button class="btn" onclick="CurbEase.logout()">Logout</button></div>
+  </nav>
+  <main class="container">
+    <h1>Admin Dashboard</h1>
+    <p class="notice">Data below loads from your Google Sheet CSV.</p>
+    <div id="summary"></div>
+    <div style="overflow:auto; margin-top:1rem;">
+      <table class="table" id="subsTable">
+        <thead><tr id="thead"></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="/fixes.js"></script>
+  <script src="/fetch-csv.js"></script>
+  <script src="/admin-sheet.js"></script>
+</body>
+</html>
