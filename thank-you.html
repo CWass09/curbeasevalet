@@ -1,18 +1,18 @@
 
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <!-- GA4 base -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX89B"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX89B"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-E1XJNKX89B');
 </script>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Thank you • CurbEase Bin Valet</title>
 <style>
 :root{--ink:#0f172a;--muted:#475569;--bg:#f6f9fc;--panel:#fff;--border:#e2e8f0}
@@ -29,18 +29,18 @@ h1{margin:.2rem 0 1rem;font-size:2rem}
 </head>
 <body>
 <div class="wrap">
-  <div class="card">
-    <h1 id="greet">Thank you! <span id="badge" class="badge" style="display:none">Active</span></h1>
-    <p class="lead">We’ve received your subscription. Your first set‑out reminder will arrive before your next pickup day.</p>
-    <div class="kv"><div class="k">Name</div><div id="name">—</div></div>
-    <div class="kv"><div class="k">Email</div><div id="email">—</div></div>
-    <div class="kv"><div class="k">Plan</div><div id="plan">—</div></div>
-    <div class="kv"><div class="k">Service address</div><div id="addr">—</div></div>
-    <div class="kv"><div class="k">Bin location</div><div id="binloc">—</div></div>
-    <a class="btn" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00">Go to your account</a>
-    <a class="btn" href="/" style="margin-left:8px">Back to home</a>
-    <div id="err"></div>
-  </div>
+<div class="card">
+<h1 id="greet">Thank you! <span class="badge" id="badge" style="display:none">Active</span></h1>
+<p class="lead">We’ve received your subscription. Your first set‑out reminder will arrive before your next pickup day.</p>
+<div class="kv"><div class="k">Name</div><div id="name">—</div></div>
+<div class="kv"><div class="k">Email</div><div id="email">—</div></div>
+<div class="kv"><div class="k">Plan</div><div id="plan">—</div></div>
+<div class="kv"><div class="k">Service address</div><div id="addr">—</div></div>
+<div class="kv"><div class="k">Bin location</div><div id="binloc">—</div></div>
+<a class="btn" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00">Go to your account</a>
+<a class="btn" href="/" style="margin-left:8px">Back to home</a>
+<div id="err"></div>
+</div>
 </div>
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
@@ -73,55 +73,27 @@ async function fetchCSV(){try{const r=await fetch(CSV_URL,{cache:'no-store'});if
 })();
 </script>
 
+<!-- Google Ads Conversion Snippet -->
+<script>
+  // Fire GA4 purchase event dynamically based on plan from URL
+  (function() {
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const plan = getParam('plan');
+    let value = 0;
+    if (plan === 'basic') value = 30;
+    if (plan === 'standard') value = 45;
+    if (plan === 'premium') value = 60;
 
-  <!-- Google Ads conversion + GA4 purchase (dynamic by plan) -->
-  <script>
-    (function(){
-      try {
-        if (window.__curbease_conv_fired) return; // guard against double-fire
-        var params = new URLSearchParams(window.location.search);
-        var plan = (params.get('plan') || '').toLowerCase();
-        var txId = params.get('order_id') || params.get('session_id') || params.get('cs') || params.get('session') || '';
-
-        // Fallbacks: try to read plan from DOM if not provided in URL
-        if (!plan) {
-          var planEl = document.getElementById('plan');
-          if (planEl && planEl.textContent) {
-            plan = planEl.textContent.trim().toLowerCase();
-          }
-        }
-
-        var prices = { basic: 30.0, standard: 45.0, premium: 60.0 };
-        var value = prices[plan] || 0;
-
-        // Fire only if we have a valid plan/value and gtag is present
-        if (value > 0 && typeof gtag === 'function') {
-          // Google Ads Purchase conversion (your send_to from Ads)
-          gtag('event', 'conversion', {
-            'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
-            'value': value,
-            'currency': 'USD',
-            'transaction_id': txId
-          });
-
-          // GA4 purchase event for Analytics revenue
-          gtag('event', 'purchase', {
-            currency: 'USD',
-            value: value,
-            items: [{ item_name: 'Subscription - ' + plan }],
-            transaction_id: txId || undefined
-          });
-
-          window.__curbease_conv_fired = true;
-          console.log('[CurbEase] Ads conversion + GA4 purchase fired', {plan: plan, value: value, txId: txId});
-        } else {
-          console.warn('[CurbEase] Missing/unknown plan or gtag not ready. Conversion not fired.', {plan: plan, value: value});
-        }
-      } catch (e) {
-        console.warn('[CurbEase] Conversion script error:', e);
-      }
-    })();
-  </script>
-
+    gtag('event', 'conversion', {
+      'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
+      'value': value,
+      'currency': 'USD',
+      'transaction_id': getParam('session_id') || ''
+    });
+  })();
+</script>
 </body>
 </html>
