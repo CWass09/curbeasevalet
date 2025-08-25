@@ -22,59 +22,87 @@
   gtag('js', new Date());
   gtag('config', 'G-E1XJNKX89B');
 </script>
-
 </head>
 <body>
   <div class="wrap">
     <div class="bar">
       <h1 style="margin:0;font-size:1.25rem">Admin Dashboard</h1>
+      <button class="btn" onclick="reload()">Reload</button>
     </div>
     <div id="summary" class="note">Loading data…</div>
     <div style="overflow:auto"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    <div id="debug" class="note" style="margin-top:.75rem;"></div>
   </div>
   <script>
-    const CSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv`;
-    // CSV override via query string: ?csv=ENCODED_URL or ?sheet=SPREADSHEET_ID&gid=GID
-    (function(){
-      const params = new URLSearchParams(location.search);
-      const csvParam = params.get('csv');
-      const sheetId = params.get('sheet');
-      const gid = params.get('gid');
-      if (csvParam) {
-        CSV_URL = decodeURIComponent(csvParam);
-      } else if (sheetId && gid) {
-        CSV_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=${gid}`;
-      }
-    })();
+    const DEFAULT_SHEET_ID = "1DBFts43__8kvOqYrmvp6WKi-XEm8ty-k5skp3HlO_Pw";
+    const DEFAULT_GID = "156265265";
+    const DEFAULT_GVIZ = "https://docs.google.com/spreadsheets/d/" + DEFAULT_SHEET_ID + "/gviz/tq?tqx=out:csv&gid=" + DEFAULT_GID;
+    const FALLBACK_PUB = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
+
+    function getCsvSource() {
+      const p = new URLSearchParams(location.search);
+      const csv = p.get('csv');
+      const sid = p.get('sheet');
+      const gid = p.get('gid');
+      if (csv) return decodeURIComponent(csv);
+      if (sid && gid) return `https://docs.google.com/spreadsheets/d/${sid}/gviz/tq?tqx=out:csv&gid=${gid}`;
+      return DEFAULT_GVIZ;
+    }
 
     function parseCsvLine(line){
-      const out = []; let cur = "", inQ = false;
+      const out=[]; let cur="", q=false;
       for(let i=0;i<line.length;i++){ const ch=line[i];
-        if(ch=='"'){ if(inQ && line[i+1]=='"'){cur+='"'; i++;} else inQ=!inQ; }
-        else if(ch==',' && !inQ){ out.push(cur); cur=""; }
-        else cur += ch;
+        if(ch=='"'){ if(q && line[i+1]=='"'){ cur+='"'; i++; } else q=!q; }
+        else if(ch==',' && !q){ out.push(cur); cur=""; }
+        else cur+=ch;
       }
       out.push(cur);
-      return out.map(s => s.replace(/^"|"$/g,""));
+      return out.map(s=>s.replace(/^"|"$/g,''));
+    }
+
+    async function tryFetch(url) {
+      const res = await fetch(url, { cache:'no-store' });
+      return { ok: res.ok, status: res.status, text: res.ok ? await res.text() : '' };
     }
 
     async function load(){
-      try{ 
-        const res = await fetch(CSV_URL, {cache:'no-store'});
-        if(!res.ok) throw new Error('CSV fetch failed: '+res.status);
-        const txt = await res.text();
-        const lines = txt.split(/\r?\n/).filter(Boolean);
-        if(lines.length===0) throw new Error('No rows in CSV');
-        const headers = parseCsvLine(lines[0]);
-        const rows = lines.slice(1).map(parseCsvLine);
-        document.getElementById('thead').innerHTML = '<tr>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr>';
-        document.getElementById('tbody').innerHTML = rows.map(r => '<tr>'+headers.map((h,i)=>'<td>'+ (r[i]||'') +'</td>').join('') + '</tr>').join('');
-        document.getElementById('summary').textContent = rows.length + ' subscriptions loaded.';
-      }catch(err){
-        document.getElementById('summary').textContent = err.message;
+      const source = getCsvSource();
+      let tried = [];
+      let attempt = source;
+      let data = null; let status = 0;
+
+      for (let i=0;i<3;i++) {
+        tried.push(attempt);
+        const r = await tryFetch(attempt);
+        status = r.status;
+        if (r.ok && r.text) { data = r.text; break; }
+        if (i===0) attempt = FALLBACK_PUB;
+        else if (i===1) attempt = '/.netlify/functions/fetch-csv?src=' + encodeURIComponent(source);
       }
+
+      const dbg = document.getElementById('debug');
+      dbg.textContent = "Tried: " + tried.join("  →  ") + "  |  last status: " + status;
+
+      if (!data) throw new Error("CSV fetch failed: " + status);
+
+      const lines = data.split(/\r?\n/).filter(Boolean);
+      if (!lines.length) throw new Error("No rows in CSV");
+      const headers = parseCsvLine(lines[0]);
+      const rows = lines.slice(1).map(parseCsvLine);
+
+      const thead = document.getElementById('thead');
+      const tbody = document.getElementById('tbody');
+      thead.innerHTML = '<tr>' + headers.map(h=>'<th>'+h+'</th>').join('') + '</tr>';
+      tbody.innerHTML = rows.map(r => '<tr>' + headers.map((h,i)=>'<td>'+ (r[i]||'') +'</td>').join('') + '</tr>').join('');
+      document.getElementById('summary').textContent = rows.length + ' subscriptions loaded.';
     }
-    load();
+
+    function reload(){ location.reload(); }
+
+    (async () => {
+      try { await load(); }
+      catch(e){ document.getElementById('summary').textContent = e.message; }
+    })();
   </script>
 </body>
 </html>
