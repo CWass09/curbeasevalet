@@ -33,7 +33,19 @@
     <div style="overflow:auto"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
   </div>
   <script>
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv`;
+    // CSV override via query string: ?csv=ENCODED_URL or ?sheet=SPREADSHEET_ID&gid=GID
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const csvParam = params.get('csv');
+      const sheetId = params.get('sheet');
+      const gid = params.get('gid');
+      if (csvParam) {
+        CSV_URL = decodeURIComponent(csvParam);
+      } else if (sheetId && gid) {
+        CSV_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=${gid}`;
+      }
+    })();
 
     function parseCsvLine(line){
       const out = []; let cur = "", inQ = false;

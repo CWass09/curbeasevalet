@@ -1,10 +1,22 @@
 
-const SHEET_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
+const EFFECTIVE_CSV = `https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv`;
+const __params = new URLSearchParams((typeof location!=='undefined' && location.search) || '');
+const __csvParam = __params.get('csv');
+const __sheetId = __params.get('sheet');
+const __gid = __params.get('gid');
+let EFFECTIVE_CSV = `https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv`;
+if (__csvParam) {
+  EFFECTIVE_CSV = decodeURIComponent(__csvParam);
+} else if (__sheetId && __gid) {
+  EFFECTIVE_CSV = `https://docs.google.com/spreadsheets/d/${__sheetId}/gviz/tq?tqx=out:csv&gid=${__gid}`;
+} else {
+  EFFECTIVE_CSV = EFFECTIVE_CSV;
+}
 async function loadCSVIntoTable(){
   const mount = document.getElementById("csvTable");
   if(!mount) return;
   try{
-    const res = await fetch(SHEET_CSV, {cache: "no-store"});
+    const res = await fetch(EFFECTIVE_CSV, {cache: "no-store"});
     const text = await res.text();
     // Parse CSV (handles quoted commas)
     const rows = text.trim().split(/\r?\n/).map(r => {
