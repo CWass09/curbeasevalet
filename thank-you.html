@@ -3,12 +3,12 @@
 <html lang="en">
 <head>
 <!-- GA4 base -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX8B9"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX89B"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-E1XJNKX8B9');
+  gtag('config', 'G-E1XJNKX89B');
 </script>
 
 <meta charset="utf-8">
@@ -43,7 +43,7 @@ h1{margin:.2rem 0 1rem;font-size:2rem}
   </div>
 </div>
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTAIuKTmyPU5OybJbNw9O7oWML19IHwU5Prnxy3_k3zMCjD3pYUUxBWFmJ31xMj_gOrzmh9OtdV_Kqe/pub?gid=319823546&single=true&output=csv";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
 const qs = new URLSearchParams(location.search);
 const sessionId = qs.get('session_id') || qs.get('sessionId') || "";
 function parseCSV(t){const r=[];let c=[''];let q=false;for(let i=0;i<t.length;i++){const a=t[i],n=t[i+1];if(q){if(a=='"'&&n=='"'){c[c.length-1]+='"';i++;}else if(a=='"'){q=false;}else c[c.length-1]+=a;}else{if(a=='"'){q=true;}else if(a==','){c.push('');}else if(a=='\n'){r.push(c);c=[''];}else if(a!='\r'){c[c.length-1]+=a;}}}r.push(c);return r.filter(x=>x.some(y=>y.trim()!==""));}
