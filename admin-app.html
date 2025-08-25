@@ -1,108 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Admin Dashboard • CurbEase</title>
-<style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;padding:1rem;background:#f8fafc;color:#0f172a}
-  .wrap{max-width:1200px;margin:0 auto}
-  .bar{display:flex;justify-content:space-between;align-items:center;margin:.5rem 0 1rem}
-  .btn{border:1px solid #e2e8f0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;background:#fff}
-  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
-  th,td{border:1px solid #e2e8f0;padding:.5rem;text-align:left}
-  th{background:#f1f5f9}
-  .note{margin:.5rem 0;color:#475569}
-</style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX89B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-E1XJNKX89B');
-</script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin Dashboard • CurbEase</title>
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX89B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E1XJNKX89B');
+  </script>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:40px;line-height:1.4}
+    h1{margin:0 0 16px}
+    .muted{color:#555}
+    .error{color:#b00020;font-weight:600;margin-top:8px}
+    .ok{color:#0a7f34;font-weight:600;margin-top:8px}
+    pre{background:#f7f7f9;border:1px solid #e8e8ef;padding:10px;border-radius:8px;overflow:auto}
+    button{padding:8px 12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer}
+    .row{display:flex;gap:16px;align-items:center}
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="bar">
-      <h1 style="margin:0;font-size:1.25rem">Admin Dashboard</h1>
-      <button class="btn" onclick="reload()">Reload</button>
-    </div>
-    <div id="summary" class="note">Loading data…</div>
-    <div style="overflow:auto"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
-    <div id="debug" class="note" style="margin-top:.75rem;"></div>
+  <h1>Admin Dashboard</h1>
+  <div class="row">
+    <button id="reload">Reload</button>
+    <span class="muted" id="source"></span>
   </div>
-  <script>
-    const DEFAULT_SHEET_ID = "1DBFts43__8kvOqYrmvp6WKi-XEm8ty-k5skp3HlO_Pw";
-    const DEFAULT_GID = "156265265";
-    const DEFAULT_GVIZ = "https://docs.google.com/spreadsheets/d/" + DEFAULT_SHEET_ID + "/gviz/tq?tqx=out:csv&gid=" + DEFAULT_GID;
-    const FALLBACK_PUB = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
+  <div id="status" class="muted" style="margin-top:10px;"></div>
+  <div id="error" class="error"></div>
+  <div id="out"></div>
 
-    function getCsvSource() {
-      const p = new URLSearchParams(location.search);
-      const csv = p.get('csv');
-      const sid = p.get('sheet');
-      const gid = p.get('gid');
-      if (csv) return decodeURIComponent(csv);
-      if (sid && gid) return `https://docs.google.com/spreadsheets/d/${sid}/gviz/tq?tqx=out:csv&gid=${gid}`;
-      return DEFAULT_GVIZ;
-    }
-
-    function parseCsvLine(line){
-      const out=[]; let cur="", q=false;
-      for(let i=0;i<line.length;i++){ const ch=line[i];
-        if(ch=='"'){ if(q && line[i+1]=='"'){ cur+='"'; i++; } else q=!q; }
-        else if(ch==',' && !q){ out.push(cur); cur=""; }
-        else cur+=ch;
-      }
-      out.push(cur);
-      return out.map(s=>s.replace(/^"|"$/g,''));
-    }
-
-    async function tryFetch(url) {
-      const res = await fetch(url, { cache:'no-store' });
-      return { ok: res.ok, status: res.status, text: res.ok ? await res.text() : '' };
-    }
-
-    async function load(){
-      const source = getCsvSource();
-      let tried = [];
-      let attempt = source;
-      let data = null; let status = 0;
-
-      for (let i=0;i<3;i++) {
-        tried.push(attempt);
-        const r = await tryFetch(attempt);
-        status = r.status;
-        if (r.ok && r.text) { data = r.text; break; }
-        if (i===0) attempt = FALLBACK_PUB;
-        else if (i===1) attempt = '/.netlify/functions/fetch-csv?src=' + encodeURIComponent(source);
-      }
-
-      const dbg = document.getElementById('debug');
-      dbg.textContent = "Tried: " + tried.join("  →  ") + "  |  last status: " + status;
-
-      if (!data) throw new Error("CSV fetch failed: " + status);
-
-      const lines = data.split(/\r?\n/).filter(Boolean);
-      if (!lines.length) throw new Error("No rows in CSV");
-      const headers = parseCsvLine(lines[0]);
-      const rows = lines.slice(1).map(parseCsvLine);
-
-      const thead = document.getElementById('thead');
-      const tbody = document.getElementById('tbody');
-      thead.innerHTML = '<tr>' + headers.map(h=>'<th>'+h+'</th>').join('') + '</tr>';
-      tbody.innerHTML = rows.map(r => '<tr>' + headers.map((h,i)=>'<td>'+ (r[i]||'') +'</td>').join('') + '</tr>').join('');
-      document.getElementById('summary').textContent = rows.length + ' subscriptions loaded.';
-    }
-
-    function reload(){ location.reload(); }
-
-    (async () => {
-      try { await load(); }
-      catch(e){ document.getElementById('summary').textContent = e.message; }
-    })();
-  </script>
+  <script src="./admin-sheet.js"></script>
 </body>
 </html>
