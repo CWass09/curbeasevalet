@@ -46,20 +46,21 @@
     const params = new URLSearchParams(location.search);
     const plan = (params.get('plan')||'').toLowerCase();
     const sessionId = params.get('session_id') || '';
-    const planValue = plan === 'premium' ? 60 : (plan === 'standard' ? 45 : 30);
+    const planValue = (plan === 'premium' ? 60 : (plan === 'standard' ? 45 : 30));
 
     // --- Minimal GA4 + Google Ads conversions (guaranteed format) ---
-    function fireAllConversions(value){
+    function fireAllConversions(rawValue){
+      const numericValue = Number(rawValue);
       // GA4 purchase (ONLY required fields)
       gtag('event', 'purchase', {
         transaction_id: sessionId || ('manual-' + Date.now()),
         currency: 'USD',
-        value: value
+        value: numericValue
       });
       // Google Ads conversion
       gtag('event', 'conversion', {
         send_to: 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
-        value: value,
+        value: numericValue,
         currency: 'USD',
         transaction_id: sessionId || ('manual-' + Date.now())
       });
@@ -89,23 +90,15 @@
           <div><div class="label">Address</div><div class="val">${addrLine}</div></div>
           <div><div class="label">Plan</div><div class="val">${plan||'-'}</div></div>
           <div><div class="label">Stripe Session</div><div class="val">${sessionId}</div></div>
-          <div><div class="label">Value</div><div class="val">$${planValue}.00</div></div>
+          <div><div class="label">Value</div><div class="val">$${Number(planValue).toFixed(2)}</div></div>
         `;
         document.getElementById('raw').textContent = JSON.stringify(data, null, 2);
 
-        // If Stripe returns amount_total, re-fire with authoritative value
-        const value = (data?.amount_total ? data.amount_total/100 : planValue);
-        gtag('event', 'purchase', {
-          transaction_id: sessionId,
-          currency: 'USD',
-          value: value
-        });
-        gtag('event', 'conversion', {
-          send_to: 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
-          value: value,
-          currency: 'USD',
-          transaction_id: sessionId
-        });
+        // If Stripe returns amount_total, re-fire with authoritative numeric value
+        const stripeValue = (data && typeof data.amount_total === 'number')
+          ? (data.amount_total / 100)
+          : Number(planValue);
+        fireAllConversions(stripeValue);
       } catch (err) {
         document.getElementById('raw').textContent = JSON.stringify({ error: err.message }, null, 2);
       }
