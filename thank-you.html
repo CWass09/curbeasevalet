@@ -1,178 +1,74 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thank you • CurbEase Bin Valet</title>
-  <style>
-    :root{
-      --ink:#0b1223; --muted:#667085; --bg:#f6f8fb; --card:#ffffff; --brand:#1a73e8;
-      --ok:#0f9d58; --warn:#ea4335; --border:#e5e7eb;
-    }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    .wrap{max-width:880px;margin:32px auto;padding:16px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.06)}
-    .p{padding:28px}
-    h1{margin:0 0 6px;font-size:clamp(26px,3vw,34px)}
-    .sub{color:var(--muted);margin:0 0 22px}
-    .grid{display:grid;grid-template-columns:180px 1fr;gap:10px 18px;margin:18px 0 24px}
-    .label{color:var(--muted);text-align:right}
-    .val{font-weight:600}
-    .btns{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{appearance:none;border:1px solid var(--border);background:#fff;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink)}
-    .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
-    .hint{margin-top:16px;color:var(--muted)}
-    .ok{color:var(--ok)} .err{color:var(--warn)}
-    code{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:0 6px}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - CurbEase</title>
+  
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX8B9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-E1XJNKX8B9');
+</script>
 
-  <!-- GA gtag loader (only loads if not already present) -->
-  <script>
-    (function(){
-      if(!window.dataLayer){ window.dataLayer = []; }
-      if(!window.gtag){
-        function gtag(){ dataLayer.push(arguments); }
-        window.gtag = gtag;
-        gtag('js', new Date());
-        // Your existing GA4 ID
-        gtag('config','G-E1XJNKX8B9');
-        var s = document.createElement('script');
-        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX8B9';
-        document.head.appendChild(s);
-      }
-    })();
-  </script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card p">
-      <h1>Thank you!</h1>
-      <p class="sub">We've received your subscription. Your first set-out reminder will arrive before your next pickup day.</p>
-
-      <div id="status" class="hint">Fetching your details…</div>
-
-      <div class="grid" id="details" hidden>
-        <div class="label">Name</div><div class="val" id="v-name">—</div>
-        <div class="label">Email</div><div class="val" id="v-email">—</div>
-        <div class="label">Plan</div><div class="val" id="v-plan">—</div>
-        <div class="label">Service address</div><div class="val" id="v-address">—</div>
-        <div class="label">Bin location</div><div class="val" id="v-bin">—</div>
-      </div>
-
-      <div class="btns">
-        <a id="account-link" class="btn primary" href="/">Go to your account</a>
-        <a class="btn" href="/">Back to home</a>
-      </div>
-
-      <p class="hint">Your subscription may take a moment to sync. Refresh shortly.</p>
-    </div>
-  </div>
+  <h1>Thank you for subscribing to CurbEase!</h1>
+  <div id="customer-info"></div>
 
   <script>
-    (function(){
-      const qs = new URLSearchParams(location.search);
-      const sessionId = qs.get('session_id') || qs.get('sessionId') || '';
-      const planParam = (qs.get('plan')||'').toLowerCase();
-      const planLabel = planParam ? planParam.charAt(0).toUpperCase()+planParam.slice(1) : '';
-      const planValueMap = { basic: 30, standard: 45, premium: 60 };
-      let value = planValueMap[planParam] || 0;
-      let currency = 'USD';
-      const firedKey = '__thankyou_signals_fired__';
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan');
+    const sessionId = params.get('session_id');
 
-      const els = {
-        details: document.getElementById('details'),
-        status: document.getElementById('status'),
-        name: document.getElementById('v-name'),
-        email: document.getElementById('v-email'),
-        plan: document.getElementById('v-plan'),
-        address: document.getElementById('v-address'),
-        bin: document.getElementById('v-bin'),
-        account: document.getElementById('account-link')
-      };
+    // Fetch checkout session details from Netlify function
+    async function loadSession() {
+      try {
+        const response = await fetch('/.netlify/functions/get-checkout-session?session_id=' + sessionId);
+        const data = await response.json();
 
-      if (planLabel) els.plan.textContent = planLabel;
+        // Show customer info
+        document.getElementById('customer-info').innerHTML = `
+          <p><strong>Name:</strong> ${data.customer_details.name}</p>
+          <p><strong>Email:</strong> ${data.customer_details.email}</p>
+          <p><strong>Address:</strong> ${data.customer_details.address.line1}, 
+          ${data.customer_details.address.city}, 
+          ${data.customer_details.address.state} ${data.customer_details.address.postal_code}</p>
+          <p><strong>Plan:</strong> ${plan}</p>
+        `;
 
-      function fmtAddress(addr){
-        if (!addr) return '—';
-        const parts = [addr.line1, addr.line2, addr.city && addr.state ? addr.city+', '+addr.state : (addr.city||addr.state), addr.postal_code].filter(Boolean);
-        return parts.join(' · ');
+        // Determine value dynamically
+        let value = 30;
+        if (plan === "standard") value = 45;
+        if (plan === "premium") value = 60;
+
+        // Fire GA4 purchase event
+        gtag('event', 'purchase', {
+          transaction_id: sessionId,
+          value: value,
+          currency: 'USD',
+          items: [{ item_name: plan, price: value }]
+        });
+
+        // Fire Google Ads conversion event
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
+          'value': value,
+          'currency': 'USD',
+          'transaction_id': sessionId
+        });
+
+      } catch (error) {
+        console.error("Error loading session:", error);
       }
+    }
 
-      function fireSignals(transactionId, val, curr){
-        if (window[firedKey]) return;
-        window[firedKey] = true;
-
-        if (window.gtag) {
-          // GA4 purchase
-          try {
-            gtag('event','purchase', {
-              value: val,
-              currency: curr || 'USD',
-              transaction_id: transactionId || ''
-            });
-          } catch(e){ console.warn('GA4 purchase fire failed', e); }
-          // Google Ads conversion
-          try {
-            gtag('event', 'conversion', {
-              'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
-              'value': val,
-              'currency': curr || 'USD',
-              'transaction_id': transactionId || ''
-            });
-          } catch(e){ console.warn('Ads conversion fire failed', e); }
-        } else {
-          console.warn('gtag not ready; signals skipped.');
-        }
-      }
-
-      async function loadSession(){
-        if (!sessionId) {
-          els.status.innerHTML = 'Completed. <span class="err">No session ID found; details limited.</span>';
-          els.details.hidden = false;
-          fireSignals('', value || 0, currency);
-          return;
-        }
-        els.status.textContent = 'Looking up your session…';
-        try{
-          const res = await fetch('/.netlify/functions/get-checkout-session?session_id='+encodeURIComponent(sessionId));
-          if (!res.ok) throw new Error('HTTP '+res.status);
-          const data = await res.json();
-
-          // Try pulling details
-          const n = data.customer_details?.name || data.customer?.name || '—';
-          const e = data.customer_details?.email || data.customer?.email || '—';
-          const addr = data.customer_details?.address || data.customer?.address || null;
-          const bin = (data.metadata && data.metadata.bin_location) || data.subscription?.metadata?.bin_location || '—';
-          const plan = planLabel || (data.display_items?.[0]?.plan?.nickname) || (data.metadata && data.metadata.plan) || '—';
-          // Amount & currency from Checkout (cents)
-          if (data.amount_total && data.currency) {
-            value = (data.amount_total / 100);
-            currency = (data.currency || 'usd').toUpperCase();
-          }
-
-          els.name.textContent = n;
-          els.email.textContent = e;
-          els.plan.textContent = plan;
-          els.address.textContent = fmtAddress(addr);
-          els.bin.textContent = bin;
-          els.details.hidden = false;
-          els.status.innerHTML = 'Completed. <span class="ok">Session synced.</span>';
-
-          fireSignals(sessionId, value || 0, currency);
-        }catch(err){
-          console.error(err);
-          els.status.innerHTML = 'Completed. <span class="err">Could not load session details (network or auth).</span>';
-          els.details.hidden = false;
-          // Still fire signals so conversions aren’t lost
-          fireSignals(sessionId, value || 0, currency);
-        }
-      }
-
-      // Update account link if you have a customer portal URL handy:
-      // els.account.href = 'https://billing.stripe.com/p/login_xxx';
-
-      loadSession();
-    })();
+    loadSession();
   </script>
 </body>
 </html>
