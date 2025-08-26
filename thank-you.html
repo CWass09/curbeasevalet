@@ -4,14 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thank You - CurbEase</title>
+  <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE57NMTBW9"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
+    // Enable GA4 debug when ?gtm_debug=x is present
     (function(){
       const dbg = new URLSearchParams(location.search).has('gtm_debug');
-      gtag('config','G-CE57NMTBW9', dbg ? { debug_mode:true } : {});
+      gtag('config', 'G-CE57NMTBW9', dbg ? { debug_mode: true } : {});
     })();
   </script>
   <style>
@@ -40,27 +42,33 @@
   </div>
 
   <script>
+    // --- Read URL params ---
     const params = new URLSearchParams(location.search);
     const plan = (params.get('plan')||'').toLowerCase();
     const sessionId = params.get('session_id') || '';
     const planValue = plan === 'premium' ? 60 : (plan === 'standard' ? 45 : 30);
 
+    // --- Minimal GA4 + Google Ads conversions (guaranteed format) ---
     function fireAllConversions(value){
-      gtag('event','purchase',{
-        transaction_id: sessionId || ('manual-'+Date.now()),
-        value: value,
-        currency: 'USD'
+      // GA4 purchase (ONLY required fields)
+      gtag('event', 'purchase', {
+        transaction_id: sessionId || ('manual-' + Date.now()),
+        currency: 'USD',
+        value: value
       });
-      gtag('event','conversion',{
+      // Google Ads conversion
+      gtag('event', 'conversion', {
         send_to: 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
         value: value,
         currency: 'USD',
-        transaction_id: sessionId || ('manual-'+Date.now())
+        transaction_id: sessionId || ('manual-' + Date.now())
       });
     }
 
+    // Fire immediately so DebugView shows purchase right away
     fireAllConversions(planValue);
 
+    // --- Enhance with Stripe session (same transaction_id for dedupe) ---
     async function loadSession(){
       try {
         if(!sessionId) throw new Error('Missing session_id');
@@ -68,7 +76,7 @@
         const text = await res.text();
         let data;
         try { data = JSON.parse(text); }
-        catch(parseErr){ throw new Error('Non-JSON from function: ' + text.slice(0,180)); }
+        catch(err){ throw new Error('Non-JSON from function: ' + text.slice(0,140)); }
 
         const address = data?.customer_details?.address || {};
         const name = data?.customer_details?.name || '';
@@ -85,13 +93,14 @@
         `;
         document.getElementById('raw').textContent = JSON.stringify(data, null, 2);
 
+        // If Stripe returns amount_total, re-fire with authoritative value
         const value = (data?.amount_total ? data.amount_total/100 : planValue);
-        gtag('event','purchase',{
+        gtag('event', 'purchase', {
           transaction_id: sessionId,
-          value: value,
-          currency: 'USD'
+          currency: 'USD',
+          value: value
         });
-        gtag('event','conversion',{
+        gtag('event', 'conversion', {
           send_to: 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
           value: value,
           currency: 'USD',
