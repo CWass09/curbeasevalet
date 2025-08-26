@@ -1,89 +1,74 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thank You - CurbEase</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E1XJNKX8B9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-E1XJNKX8B9');
-  </script>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:24px;line-height:1.5}
-    .card{max-width:760px;margin:0 auto;border:1px solid #eee;border-radius:12px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
-    h1{margin-top:0}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .label{color:#666}
-    .val{font-weight:600}
-    .ok{display:inline-block;background:#16a34a;color:#fff;padding:6px 10px;border-radius:999px;font-size:12px;margin-left:8px}
-    pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;padding:12px;border-radius:8px}
-    @media(max-width:640px){.grid{grid-template-columns:1fr}}
-  </style>
+  
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CE57NMTBW9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CE57NMTBW9');
+</script>
+
 </head>
 <body>
-  <div class="card">
-    <h1>Thanks for subscribing to CurbEase! <span class="ok">Confirmed</span></h1>
-    <p>We’ve received your order. Below are your details:</p>
-    <div id="details" class="grid"></div>
-    <h3>Reference</h3>
-    <pre id="raw">Loading...</pre>
-  </div>
+  <h1>Thank you for subscribing to CurbEase!</h1>
+  <div id="customer-info"></div>
 
   <script>
-    const params = new URLSearchParams(location.search);
-    const plan = (params.get('plan')||'').toLowerCase();
-    const sessionId = params.get('session_id') || '';
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan');
+    const sessionId = params.get('session_id');
 
-    const planValue = plan === 'premium' ? 60 : (plan === 'standard' ? 45 : 30);
-
-    async function load() {
+    // Fetch checkout session details from Netlify function
+    async function loadSession() {
       try {
-        const res = await fetch('/.netlify/functions/get-checkout-session?session_id=' + encodeURIComponent(sessionId));
-        const data = await res.json();
+        const response = await fetch('/.netlify/functions/get-checkout-session?session_id=' + sessionId);
+        const data = await response.json();
 
-        document.getElementById('raw').textContent = JSON.stringify(data, null, 2);
-
-        const address = data?.customer_details?.address || {};
-        const name = data?.customer_details?.name || '';
-        const email = data?.customer_details?.email || '';
-        const addrLine = [address.line1, address.city, address.state, address.postal_code].filter(Boolean).join(', ');
-
-        document.getElementById('details').innerHTML = `
-          <div><div class="label">Name</div><div class="val">${name}</div></div>
-          <div><div class="label">Email</div><div class="val">${email}</div></div>
-          <div><div class="label">Address</div><div class="val">${addrLine}</div></div>
-          <div><div class="label">Plan</div><div class="val">${plan}</div></div>
-          <div><div class="label">Stripe Session</div><div class="val">${sessionId}</div></div>
-          <div><div class="label">Value</div><div class="val">$${planValue}.00</div></div>
+        // Show customer info
+        document.getElementById('customer-info').innerHTML = `
+          <p><strong>Name:</strong> ${data.customer_details?.name || ''}</p>
+          <p><strong>Email:</strong> ${data.customer_details?.email || ''}</p>
+          <p><strong>Address:</strong> ${data.customer_details?.address?.line1 || ''}, 
+          ${data.customer_details?.address?.city || ''}, 
+          ${data.customer_details?.address?.state || ''} ${data.customer_details?.address?.postal_code || ''}</p>
+          <p><strong>Plan:</strong> ${plan}</p>
         `;
 
-        // GA4 purchase
+        // Determine value dynamically
+        let value = 30;
+        if (plan === "standard") value = 45;
+        if (plan === "premium") value = 60;
+
+        // Fire GA4 purchase event
         gtag('event', 'purchase', {
           transaction_id: sessionId,
-          value: planValue,
+          value: value,
           currency: 'USD',
-          items: [{ item_name: plan, price: planValue, quantity: 1 }]
+          items: [{ item_name: plan, price: value }]
         });
 
-        // Google Ads conversion
+        // Fire Google Ads conversion event
         gtag('event', 'conversion', {
           'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
-          'value': planValue,
+          'value': value,
           'currency': 'USD',
           'transaction_id': sessionId
         });
 
-      } catch (e) {
-        document.getElementById('raw').textContent = 'Error loading session: ' + e.message;
-        console.error(e);
+      } catch (error) {
+        console.error("Error loading session:", error);
       }
     }
 
-    load();
+    loadSession();
   </script>
 </body>
 </html>
