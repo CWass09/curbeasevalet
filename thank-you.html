@@ -47,12 +47,11 @@
     const planValue = plan === 'premium' ? 60 : (plan === 'standard' ? 45 : 30);
 
     function fireAllConversions(value){
-      // GA4 purchase
+      // GA4 purchase (no items array; keep it minimal and valid)
       gtag('event', 'purchase', {
         transaction_id: sessionId || ('manual-'+Date.now()),
         value: value,
-        currency: 'USD',
-        items: [{ item_name: plan||'plan', price: value, quantity: 1 }]
+        currency: 'USD'
       });
       // Google Ads conversion
       gtag('event', 'conversion', {
@@ -76,7 +75,7 @@
         const address = data?.customer_details?.address || {};
         const name = data?.customer_details?.name || '';
         const email = data?.customer_details?.email || '';
-        const addrLine = [address.line1, address.city, address.state, address.postal_code].filter(Boolean).join(', ');
+        const addrLine = [address.line1, address.city, address.state, address.postal_code].filter(Boolean).join(', '');
 
         document.getElementById('details').innerHTML = `
           <div><div class="label">Name</div><div class="val">${name}</div></div>
@@ -93,8 +92,7 @@
         gtag('event', 'purchase', {
           transaction_id: sessionId,
           value: value,
-          currency: 'USD',
-          items: [{ item_name: plan||'plan', price: value, quantity: 1 }]
+          currency: 'USD'
         });
         gtag('event', 'conversion', {
           send_to: 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
