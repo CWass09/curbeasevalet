@@ -1,12 +1,2 @@
 /*
   X-Content-Type-Options: nosniff
-
-/admin/*
-  Cache-Control: no-store
-
-
-/admin.html
-  Basic-Auth: Wassarman AmwTrw@2425
-
-/admin-app.html
-  Basic-Auth: Wassarman AmwTrw@2425
