@@ -1,55 +1,95 @@
-// Admin App JS
-const VALID_TOKEN = "curbease-ok-2425";
+
+// admin-app.js
+
+// Published Google Sheets CSV URL
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShSt84sllgBrJ6wOpq9AoRAMCbS5bJBuexFnJuSP1xxlKYDci_J-E3hJJJLPt9a098VonUbhOJEWB0/pub?output=csv";
 
-window.onload = () => {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
-  const badge = document.getElementById("statusBadge");
+// Elements for status + data
+const statusEl = document.getElementById("status") || document.getElementById("admin-status");
+const containerEl = document.getElementById("csv-container") || (() => {
+    const div = document.createElement("div");
+    div.id = "csv-container";
+    document.body.appendChild(div);
+    return div;
+})();
 
-  if (!token) {
-    badge.innerText = "Missing token";
-    badge.style.color = "red";
-    return;
-  }
-  if (token !== VALID_TOKEN) {
-    badge.innerText = "Invalid token";
-    badge.style.color = "red";
-    return;
-  }
+function setStatus(msg) {
+    if (statusEl) {
+        statusEl.textContent = msg;
+    } else {
+        console.log(msg);
+    }
+}
 
-  badge.innerText = "Authorized";
-  badge.style.color = "green";
-
-  fetchCSV();
-};
-
-function fetchCSV() {
-  const badge = document.getElementById("statusBadge");
-  fetch(CSV_URL)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Fetch error " + res.status);
-      }
-      return res.text();
-    })
-    .then(data => {
-      badge.innerText = "CSV Loaded";
-      badge.style.color = "green";
-      console.log("CSV Data:", data.slice(0,200)); // Log first 200 chars
-      document.getElementById("table").innerText = data.split("\n").slice(0,5).join("\n");
-    })
-    .catch(err => {
-      badge.innerText = err.message;
-      badge.style.color = "red";
-      console.error("CSV fetch failed:", err);
+// Simple CSV parser
+function parseCSV(text) {
+    const rows = text.split(/\r?\n/).filter(r => r.trim().length > 0);
+    return rows.map(row => {
+        // Handles quoted values with commas
+        const values = [];
+        let current = "";
+        let insideQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+            const char = row[i];
+            if (char === '"') {
+                insideQuotes = !insideQuotes;
+            } else if (char === "," && !insideQuotes) {
+                values.push(current);
+                current = "";
+            } else {
+                current += char;
+            }
+        }
+        values.push(current);
+        return values;
     });
 }
 
-function reloadData() {
-  fetchCSV();
+// Render table
+function renderTable(data) {
+    const table = document.createElement("table");
+    table.style.borderCollapse = "collapse";
+    table.style.marginTop = "20px";
+
+    data.forEach((row, rowIndex) => {
+        const tr = document.createElement("tr");
+        row.forEach(cell => {
+            const el = rowIndex === 0 ? document.createElement("th") : document.createElement("td");
+            el.textContent = cell;
+            el.style.border = "1px solid #ddd";
+            el.style.padding = "8px";
+            tr.appendChild(el);
+        });
+        table.appendChild(tr);
+    });
+
+    containerEl.innerHTML = "";
+    containerEl.appendChild(table);
 }
 
-function openCSV() {
-  window.open(CSV_URL, "_blank");
+// Token check
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get("token");
+
+if (token !== "curbease-ok-2425") {
+    document.body.innerHTML = "<h2>Unauthorized</h2>";
+    throw new Error("Invalid token");
 }
+
+// Fetch + render
+async function loadCSV() {
+    try {
+        setStatus("Loading CSV...");
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error("CSV fetch failed: " + response.status);
+        const text = await response.text();
+        const data = parseCSV(text);
+        renderTable(data);
+        setStatus("Data loaded.");
+    } catch (err) {
+        setStatus(err.message);
+        console.error(err);
+    }
+}
+
+loadCSV();
