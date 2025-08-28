@@ -1,5 +1,0 @@
-/.netlify/functions/*  /.netlify/functions/:splat  200
-/admin /admin.html 200
-/mission /mission.html 200
-/thank-you /thank-you.html 200
-/* /index.html 200
