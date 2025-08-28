@@ -167,454 +167,19 @@ body::before {
 </style>
 
 
-<style>
-/* Corner placement for Premium NEW badge */
-.plan.plan-premium{position:relative; overflow:visible;}
-.badge-premium-corner{position:absolute; top:-18px; right:-18px; z-index:10; pointer-events:none;}
-/* Improve desktop overlap with "Weekly service" chip */
-@media (min-width: 900px){
-  .plan.plan-premium .tag{margin-top:8px;}
-}
-</style>
-<style>
-/* NEW badge (enforced black with white text) */
-.badge-new{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 8px;border-radius:999px;background:#000 !important;color:#fff !important;line-height:1;border:none !important;box-shadow:none !important;text-shadow:none !important;}
-.badge-new .txt{font-weight:800;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:#fff !important;text-shadow:none !important;-webkit-text-stroke:0 !important;}
-</style>
 
-
-
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CE57NMTBW9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-CE57NMTBW9');
-</script>
-
-
-
-
-
-
-<style>
-/* NEW badge (enforced black with white text) */
-.badge-new{display:inline-block;vertical-align:middle;margin-left:8px;padding:2px 8px;border-radius:999px;background:#000 !important;color:#fff !important;line-height:1;border:none !important;box-shadow:none !important;text-shadow:none !important;}
-.badge-new .txt{font-weight:800;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:#fff !important;text-shadow:none !important;-webkit-text-stroke:0 !important;}
-</style>
-
-<style>
-/* Desktop: keep NEW badge clear of 'Weekly service' tag */
-@media (min-width: 900px){
-  .plan-premium h3{ margin-right: 120px; display:flex; align-items:center; gap:8px; }
-}
-</style>
-<style>
-
-/* Mission inline section spacing */
-.mission-inline{padding:28px 0}
-.mission-inline .container{max-width:1000px;margin:0 auto}
-
-</style>
-<style>html{scroll-behavior:smooth;}</style>
-</head>
-<body data-places-key="AIzaSyCps2ETb39sNYO7ZSZDiCsxKhNtDIp4soQ">
-<nav aria-label="Primary">
-  <div class="container inner">
-    <a class="brand" href="#" aria-label="Home">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='64' fill='%231e3a8a'/%3E%3Cpath d='M20 70l24-24 16 16 28-28 20 20v28H20z' fill='%23fff'/%3E%3C/svg%3E" class="logo" alt="CurbEase logo">
-      <div><div class="badge">CurbEase Bin Valet</div><small class="sub">Prosper • Light Farms</small></div>
-    </a>
-    <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">Menu</button>
-    <div class="nav-main">
-      <a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#subscribe">Subscribe</a><a href="#mission">Mission</a>
-      <a href="#about">About</a><a href="#account">Account</a><a href="#faq">FAQ</a><a href="#contact-us">Contact</a>
-    </div>
-    <div class="actions">
-      <a class="btn btn-primary" href="#pricing">See plans</a>
-      
-    </div>
+<section id="trust-badges" style="padding:14px 20px;background:#f3f4f6;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <div style="max-width:1100px;margin:0 auto;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;color:#111827">
+    <div title="Police-officer-owned" style="display:flex;align-items:center;gap:8px"><span>👮‍♂️</span><span>Police‑officer‑owned</span></div>
+    <div title="Insured & background-checked" style="display:flex;align-items:center;gap:8px"><span>🛡️</span><span>Insured & background‑checked</span></div>
+    <div title="Supports veterans charities" style="display:flex;align-items:center;gap:8px"><span>🇺🇸</span><span>Supports veterans charities</span></div>
+    <div title="Secure checkout" style="display:flex;align-items:center;gap:8px"><span>🔒</span><span>Secure Stripe checkout</span></div>
   </div>
-  <div id="mobile-menu" class="mobile-menu" hidden>
-    <div class="panel" role="dialog" aria-modal="true" aria-label="Site menu">
-      <div class="group">
-        <a class="item" href="#services">Services</a><a class="item" href="#pricing">Pricing</a>
-        <a class="item" href="#subscribe">Subscribe</a><a class="item" href="#mission">Mission</a><a class="item" href="#about">About</a>
-        <a class="item" href="#account">Account</a><a class="item" href="#faq">FAQ</a><a class="item" href="#contact-us">Contact</a>
-      </div>
-      <div class="actions" style="margin-top:12px">
-        <a class="btn btn-primary" href="#pricing">See plans</a>
-        
-      </div>
-    </div>
-  </div>
-</nav>
 
-<header class="hero">
-  <div class="container wrap">
-    <div>
-      <h1>Bin day, handled.</h1>
-      <p>We roll your bins to the curb the evening before pickup and return them after collection — so you don’t have to.</p>
-      <p class="trust-badge" aria-label="Trust & safety">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="rgba(255,255,255,.95)" stroke-width="1.7" fill="rgba(220,38,38,.18)"/>
-        </svg>
-        <span class="tb-item"><strong>Law‑enforcement owned</strong></span><span class="dot" aria-hidden="true"></span><span class="tb-item">Background‑checked team</span>
-      </p>
-      <div class="donate-badge" aria-label="Donation statement">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2l3 2h5v5l2 3-2 3v5h-5l-3 2-3-2H4v-5L2 12l2-3V4h5l3-2z"/>
-        </svg>
-        A portion of every subscription supports <span class="subtext">Wounded Warrior Project</span>
-      </div>
-    </div>
-    <!-- Realistic green + blue bins with fixed recycle icon -->
-    <svg id="bins-hero" viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trash and recycling bins">
-      <defs>
-        <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#15803d"/>
-        </linearGradient>
-        <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/>
-        </linearGradient>
-        <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="rgba(255,255,255,.35)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/>
-        </linearGradient>
-        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="6"/>
-          <feComponentTransfer><feFuncA type="linear" slope=".35"/></feComponentTransfer>
-          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <ellipse cx="280" cy="320" rx="210" ry="24" fill="rgba(0,0,0,.25)"/>
-      <!-- Green bin -->
-      <g transform="translate(110,60)" filter="url(#shadow)">
-        <rect x="0" y="40" width="150" height="200" rx="14" fill="url(#gGreen)"/>
-        <rect x="18" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="36" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="54" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="72" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="90" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="108" y="60" width="6" height="160" fill="rgba(255,255,255,.08)"/>
-        <rect x="-6" y="18" width="162" height="28" rx="8" fill="#065f46"/>
-        <rect x="8" y="12" width="134" height="12" rx="6" fill="#10b981"/>
-        <circle cx="24" cy="254" r="16" fill="#111827"/><circle cx="24" cy="254" r="8" fill="#9ca3af"/>
-        <circle cx="126" cy="254" r="16" fill="#111827"/><circle cx="126" cy="254" r="8" fill="#9ca3af"/>
-        <path d="M10,50 h50 a8,8 0 0 1 8,8 v140 a20,20 0 0 1-20,20 h-10 a18,18 0 0 1-18-18 V58 a8,8 0 0 1 8-8z" fill="url(#shine)" opacity=".35"/>
-      </g>
-      <!-- Blue bin with centered recycle symbol -->
-      <g transform="translate(300,50)" filter="url(#shadow)">
-        <rect x="0" y="40" width="150" height="210" rx="14" fill="url(#gBlue)"/>
-        <g transform="translate(-4,18) rotate(-6)">
-          <rect x="0" y="0" width="162" height="28" rx="8" fill="#1e3a8a"/>
-          <rect x="12" y="-6" width="134" height="12" rx="6" fill="#60a5fa"/>
-        </g>
-        <text x="75" y="152" text-anchor="middle" font-size="56" fill="#ffffff" opacity=".95">♻︎</text>
-        <circle cx="24" cy="264" r="16" fill="#111827"/><circle cx="24" cy="264" r="8" fill="#9ca3af"/>
-        <circle cx="126" cy="264" r="16" fill="#111827"/><circle cx="126" cy="264" r="8" fill="#9ca3af"/>
-        <path d="M10,60 h48 a8,8 0 0 1 8,8 v130 a20,20 0 0 1-20,20 h-8 a18,18 0 0 1-18-18 V68 a8,8 0 0 1 8-8z" fill="url(#shine)" opacity=".28"/>
-      </g>
-    </svg>
-  </div>
-</header>
-
-<main id="main">
-  <section id="services"><div class="container">
-    <a id="howitworks"></a><h2>What we do</h2>
-    <p class="lead">Premium, subscription‑based “bin valet” built for Light Farms and Prosper. We handle curb day end‑to‑end with reliable reminders and friendly service.</p>
-
-    <div class="grid wedo">
-      <div class="card feature accent">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="17" rx="3" stroke="#1e3a8a" stroke-width="2"/><path d="M8 2v4M16 2v4M3 10h18" stroke="#1e3a8a" stroke-width="2"/><rect x="7" y="13" width="4" height="3" rx="1" fill="#2563eb"/><rect x="13" y="13" width="4" height="3" rx="1" fill="#dc2626"/></svg>
-        <h3>Set‑out & return</h3>
-        <p>We roll bins to the curb the evening before pickup and return them to your yard the same day after collection.</p>
-      </div>
-      <div class="card feature">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5 12 4l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8.5Z" stroke="#2563eb" stroke-width="2"/><path d="M9 22v-6h6v6" stroke="#2563eb" stroke-width="2"/></svg>
-        <h3>Gate & driveway friendly</h3>
-        <p>Long drive? Back gate? We’ve got it. Leave quick notes during checkout so we can access bins easily.</p>
-      </div>
-      <div class="card feature">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="14" rx="3" stroke="#2563eb" stroke-width="2"/><path d="M7 12h10M7 9h10" stroke="#2563eb" stroke-width="2"/></svg>
-        <h3>Reminders & travel holds</h3>
-        <p>We’ll nudge you before pickup day. Traveling? Pause any week with a quick message or via your portal.</p>
-      </div>
-    </div>
-  </div></section>
-
-  <!-- ABOUT (standout) -->
-  <section id="about" style="padding-top:0"><div class="container about-wrap">
-    <div class="ribbon" aria-label="Badge: Police‑officer owned">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 2l3 2h5v5l2 3-2 3v5h-5l-3 2-3-2H4v-5L2 12l2-3V4h5l3-2z"/>
-      </svg>
-      POLICE‑OFFICER OWNED
-    </div>
-    <div class="about-card">
-      <div class="about-grid">
-        <div>
-          <h3>About & Standards</h3>
-          <p class="big-claim">Run by an active North Texas police officer. That means rigorous vetting, punctuality, and respectful service in your neighborhood.</p>
-          <div class="badges">
-            <span class="badge-outline">Background‑checked staff</span>
-            <span class="badge-outline">Strict hiring standards</span>
-            <span class="badge-outline">Secure access handling</span>
-          </div>
-        </div>
-        <div>
-          <p><strong>About</strong><br>
-CurbEase Bin Valet was founded to make life easier for our neighbors while keeping our community looking its best.
-As a law‑enforcement–owned and family‑run business, we value trust, dependability, and service. Every pickup is done
-with professionalism and care, because small details make a big difference in the pride we share for our city.</p>
-<p>We’re also committed to giving back. A portion of our efforts supports the <em>Wounded Warrior Project</em>,
-honoring those who have sacrificed for our freedom. Serving our community means more than curbside—it’s about
-contributing to a cleaner, safer, and stronger place for everyone.</p>
-<h4>Our Standards</h4>
-<ul class="features">
-            <li>Background‑checked team members</li>
-            <li>Clear communication and text reminders</li>
-            <li>Secure handling of gate codes and notes</li>
-            <li>Neighborhood‑friendly conduct</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div></section>
-
-  <section 
-<!-- Inline Mission Section (inserted) -->
-<section id="mission" class="mission-inline">
-  <div class="container">
-    <div class="card mission-card" style="border-radius:16px;box-shadow:0 8px 30px rgba(2,6,23,.06);border:1px solid #e5e7eb;background:#fff;padding:20px;">
-      <div class="wrap">
-    
-    <div class="card">
-      <h1>Our Mission</h1>
-      <p class="lead">Serve our community. Keep our city clean & safe. Give back to those who served.</p>
-      <p>CurbEase Bin Valet was started to remove a small but annoying pain from busy families—getting the bins to the curb and back—while showing up as good neighbors. We’re law‑enforcement owned and operated in North Texas, and we bring that same focus on reliability, respect, and safety to every home we visit.</p>
-      <div class="grid">
-        <div>
-          <h2>Community First</h2>
-          <p>We live here, too. That means punctual service, quiet early‑morning routes, and neighborhood‑friendly conduct. We treat every driveway like our own and keep your streets tidy on pickup day.</p>
-          <span class="pill">Background‑checked staff</span>
-          <span class="pill">Secure access handling</span>
-          <span class="pill">Text reminders</span>
-        </div>
-        <div>
-          <h2>Clean & Safe Streets</h2>
-          <p>Consistent set‑out and return reduces missed pickups and keeps bins from blocking sidewalks or blowing into streets. Our team follows clear standards to protect property and improve curb appeal.</p>
-          <span class="pill">Respect for HOA rules</span>
-          <span class="pill">Gate/code privacy</span>
-          <span class="pill">Route punctuality</span>
-        </div>
-      </div>
-      <h2>Giving Back</h2>
-      <p>Each month we donate a portion of proceeds to causes that support veterans and first responders, including <strong>Wounded Warrior Project</strong>. It’s one way we say thank you to those who serve.</p>
-      <h2>Our Promise</h2>
-      <ul>
-        <li>On‑time, reliable weekly set‑out & return</li>
-        <li>Friendly, background‑checked team</li>
-        <li>Clear communication and quick support</li>
-        <li>Cancel anytime—no long contracts</li>
-      </ul>
-      <a class="btn cta" href="/#pricing">See plans</a>
-      <a class="btn" href="/#contact-us">Contact us</a>
-    </div>
-  </div>
-    </div>
+    <details style="margin:8px 0; background:#fff; padding:12px 16px; border-radius:12px; border:1px solid #e5e7eb;"><summary><strong>What if there’s a missed pickup?</strong></summary><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
   </div>
 </section>
 
-<div class="container"><h2 id="pricing">Pricing</h2><p class="lead">Weekly service — bins are handled every pickup week. A portion of every subscription supports Wounded Warrior Project.</p>
-    <div class="grid pricing">
-      <div class="card plan plan-basic">
-        <div class="tag">Weekly service</div>
-        <h3>Basic</h3>
-        <div class="price">$30<span class="small">/mo</span></div>
-        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out only (2 bins)</li><li>Trash + Recycling</li><li>Text notifications</li></ul>
-        <a class="btn btn-outline sub-btn" data-plan="basic" href="https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02" target="_blank" rel="noopener">Subscribe</a>
-      </div>
-      <div class="card plan plan-standard" style="border:2px solid #2563EB">
-        <div class="tag">Weekly service</div>
-        <h3>Standard</h3>
-        <div class="price">$45<span class="small">/mo</span></div>
-        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out + Return (2 bins)</li><li>Travel holds included</li><li>Priority text support</li></ul>
-        <a class="btn btn-primary sub-btn" data-plan="standard" href="https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03" target="_blank" rel="noopener">Subscribe</a>
-      </div>
-      <div class="card plan plan-premium">
-        <div class="tag">Weekly service</div>
-        <h3>Premium</h3>
-<span class="badge-new badge-premium-corner"><span class="txt">NEW</span></span>
-        <div class="price">$60<span class="small">/mo</span></div>
-        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Set‑out + Return (up to 4 bins)</li><li>Gate/long driveway access</li><li>Priority support</li><li><strong>One free trash &amp; recycle bin cleaning per month</strong></li></ul>
-        <a class="btn btn-outline sub-btn" data-plan="premium" href="https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" target="_blank" rel="noopener">Subscribe</a>
-      </div>
-      <div class="card plan plan-business">
-        <div class="tag">Weekly service</div>
-        <h3>Business (10+ bins)</h3>
-        <div class="price">Custom<span class="small"> /mo</span></div>
-        <ul class="features"><li><b>Weekly service</b> — handled every pickup week</li><li>Weekly set‑out & return</li><li>Multi‑location friendly</li><li>Flexible scheduling</li></ul>
-        <a class="btn btn-outline" href="#biz" aria-label="Request business quote">Request quote</a>
-      </div>
-    </div>
-    <div style="margin-top:10px">
-      <span class="badge-chip">Apple Pay</span>
-      <span class="badge-chip">Google Pay</span>
-      <span class="badge-chip">Credit/Debit</span>
-    </div>
-  </div></section>
-
-  <section id="subscribe"><div class="container">
-    <h2>Subscribe online</h2>
-    <p class="lead">Secure hosted checkout. We accept cards, Apple Pay and Google Pay.</p>
-    <div class="card" style="margin-bottom:14px">
-      <label for="subscribe-address">Optional: Service address (helps us prefill later)</label>
-      <input id="subscribe-address" placeholder="Start typing your address…">
-      <p class="small">This saves locally on your device. You’ll still confirm details in the portal.</p>
-    </div>
-    <div class="grid" style="grid-template-columns:repeat(3, minmax(0,1fr))">
-      <a class="btn btn-outline sub-btn" data-plan="basic" href="https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02" target="_blank" rel="noopener">Basic – $30/mo</a>
-      <a class="btn btn-primary sub-btn" data-plan="standard" href="https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03" target="_blank" rel="noopener">Standard – $45/mo</a>
-      <a class="btn btn-outline sub-btn" data-plan="premium" href="https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" target="_blank" rel="noopener">Premium – $60/mo</a>
-    </div>
-  </div></section>
-
-  <section id="account"><div class="container">
-    <h2>Manage your subscription</h2>
-    <div class="card">
-      <p>Use the Customer Portal to update payment method, view invoices, or cancel/pause service.</p>
-      <p><a class="btn btn-outline" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00" target="_blank" rel="noopener">Open Customer Portal</a></p>
-    </div>
-
-    <div class="card" id="update-form-card">
-      <h3>Update service details</h3>
-      <p class="lead">Need to change your service address or where we find your bins? Submit this quick form—no login required.</p>
-
-      <button id="toggle-update" class="btn btn-outline" type="button" style="margin-bottom:10px">Update Service Details</button>
-<form name="service-updates" hidden method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?form=service-updates#update-thanks">
-        <input type="hidden" name="form-name" value="service-updates">
-        <input type="hidden" name="channel" id="channel-field" value="">
-        <p style="display:none"><label>Don’t fill this out: <input name="bot-field"></label></p>
-
-        <label for="name">Full name</label>
-        <input id="name" name="name" required placeholder="Jane Doe">
-
-        <label for="email">Email used at checkout</label>
-        <input id="email" name="email" type="email" required placeholder="info@prosperbinvalet.com">
-
-        <div class="row">
-          <div style="flex:1">
-            <label for="addr1">Street address</label>
-            <input id="addr1" name="address_line1" required placeholder="123 Main St">
-          </div>
-          <div style="width:180px">
-            <label for="addr2">Apt/Unit (opt.)</label>
-            <input id="addr2" name="address_line2" placeholder="Unit #">
-          </div>
-        </div>
-
-        <div class="row">
-          <div style="flex:1"><label for="city">City</label><input id="city" name="city" required placeholder="Prosper"></div>
-          <div style="width:110px"><label for="state">State</label><input id="state" name="state" required placeholder="TX"></div>
-          <div style="width:140px"><label for="zip">ZIP</label><input id="zip" name="postal_code" required placeholder="75078"></div>
-        </div>
-
-        <label for="binloc">Where are the bins located?</label>
-        <textarea id="binloc" name="bin_location" required placeholder="e.g., side yard behind wooden gate; keypad code 1234; dog in backyard."></textarea>
-
-        <label for="pickup">Pickup day (if known)</label>
-        <select id="pickup" name="pickup_day">
-          <option value="">Select…</option>
-          <option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option>
-        </select>
-
-        <div class="row" style="margin-top:10px">
-          <button class="btn btn-primary" type="submit">Submit update</button>
-          <a class="btn btn-outline" href="mailto:info@prosperbinvalet.com">Or email us</a>
-        </div>
-        <p class="muted">We’ll update your account in Stripe and confirm by email/text.</p>
-      </form>
-    </div>
-
-    <div id="biz" class="card">
-      <h3>Business request (10+ bins)</h3>
-      <p class="lead">Tell us about your site and bin count—we’ll send a quote the same day.</p>
-      <button id="toggle-biz" class="btn btn-outline" type="button" style="margin-bottom:10px">Business Request (10+ bins)</button>
-<form name="business-request" hidden method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/?form=business-request#biz-thanks">
-        <input type="hidden" name="form-name" value="business-request">
-        <input type="hidden" name="channel" id="channel-field-biz" value="">
-        <p style="display:none"><label>Don’t fill this out: <input name="bot-field"></label></p>
-
-        <label for="bizname">Business/Community name</label>
-        <input id="bizname" name="business_name" required placeholder="Example Apartments">
-
-        <div class="row">
-          <div style="flex:1"><label for="bincount">Approx. # of bins</label><input id="bincount" name="bin_count" required placeholder="e.g., 12"></div>
-          <div style="flex:1"><label for="freq">Frequency</label><select id="freq" name="frequency"><option>Weekly</option><option>Twice weekly</option></select></div>
-        </div>
-
-        <label for="bizaddr">Service address</label>
-        <input id="bizaddr" name="service_address" required placeholder="123 Main St, Prosper TX">
-
-        <label for="contact">Contact name & phone</label>
-        <input id="contact" name="contact" required placeholder="Jane Doe, (469) 123‑4567">
-
-        <label for="notes">Notes</label>
-        <textarea id="notes" name="notes" placeholder="Access details, preferred days, etc."></textarea>
-
-        <div class="row" style="margin-top:10px">
-          <button class="btn btn-primary" type="submit">Request quote</button>
-          <a class="btn btn-outline" href="mailto:info@prosperbinvalet.com">Or email details</a>
-        </div>
-      </form>
-    </div>
-  </div></section>
-
-  <section id="faq"><div class="container"><h2>FAQ</h2>
-    <p><b>Who owns CurbEase Bin Valet?</b> We’re law‑enforcement owned and operated locally. Our team is background‑checked and trained.</p>
-    <p><b>Where do you service?</b> Light Farms & Prosper, TX.</p>
-    <p><b>Can I pause while traveling?</b> Yes—pause any week by contacting us or via your Customer Portal.</p>
-  </div></section>
-
-  <section id="contact"><div class="container"><a id="contact-us"></a><h2>Contact</h2>
-    <div class="card"><p><b>Email:</b> <a href="mailto:info@prosperbinvalet.com">info@prosperbinvalet.com</a></p>
-    <p><b>Phone:</b> <a href="tel:+14692989495">(469) 298-9495</a></p>
-    <p class="small">Local business in Prosper, TX.</p>
-    <p></p></div></div></section>
-
-  <section id="thank-you" class="hidden"><div class="container">
-    <div class="success">
-      <h2 style="margin:0 0 6px">Thanks — your subscription is set!</h2>
-      <p style="opacity:.95">You’ll get a confirmation email from Stripe. We’ll text or email you before pickup day.</p>
-      <p><a class="btn btn-outline" href="#account">Update service details</a> <a class="btn btn-outline" href="https://billing.stripe.com/p/login/14AcMZ4gk1P10VK5yl9oc00" target="_blank" rel="noopener">Customer Portal</a></p>
-    </div>
-  </div></section>
-
-  <section id="update-thanks" class="hidden"><div class="container">
-    <div class="success">
-      <h2 style="margin:0 0 6px">Thanks—got your update!</h2>
-      <p style="opacity:.95">We’ll update your account and confirm shortly. If anything’s urgent, text us at <a href="tel:+14692989495" style="color:#e2e8f0">(469) 298-9495</a>.</p>
-    </div>
-  </div></section>
-
-  <section id="biz-thanks" class="hidden"><div class="container">
-    <div class="success">
-      <h2 style="margin:0 0 6px">Thanks—business request received!</h2>
-      <p style="opacity:.95">We’ll reply the same day with a quote and next steps.</p>
-    </div>
-  </div></section>
-</main>
-
-
-<footer>
-  <div class="container">
-    <p class="copyright">© 2025 CurbEase Bin Valet • Law‑enforcement owned • 
-      <a href="https://billing.stripe.com/p/login/8wM4iZ5dA6AZ9zu9AA" target="_blank" rel="noopener">Customer Portal</a> • 
-      <a href="#mission">Mission</a> • 
-      <a href="/admin-access.html">Admin</a>
-    </p>
-  </div>
 </footer>
 
 
@@ -764,5 +329,152 @@ document.addEventListener('DOMContentLoaded', function(){
 <a id="mission"></a>
 <a id="freepickup"></a>
 <a id="savetime"></a>
+  <script src="/assets/js/stripe-links.js" defer></script>
+
+<section id="why-premium" style="padding:40px 20px; background:#ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+  <div style="max-width:900px; margin:0 auto;">
+    <h3 style="font-size:1.6rem; margin:0 0 10px;">Why Premium?</h3>
+    <p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
+  </div>
+</section>
+
+</footer></blockquote>
+      <blockquote style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin:0"><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
+  </div>
+</section>
+
+</footer></blockquote>
+      <blockquote style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin:0"><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
+  </div>
+</section>
+
+</footer></blockquote>
+    </div>
+  </div>
+</section>
+<style>
+@media (max-width: 900px){
+  #testimonials div[style*="grid-template-columns"]{ grid-template-columns: 1fr; }
+}
+</style>
+
+
+<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#111827;color:#fff;padding:10px 12px;display:none;z-index:9999">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+    <span style="font-weight:600">Ready to sign up?</span>
+    <a href="#" onclick="return goSubscribe('standard')" style="background:#22c55e;color:#052e12;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800">Get Standard</a>
+  </div>
+</div>
+<script>
+(function(){
+  function check(){
+    if(window.innerWidth < 760){ document.getElementById('sticky-cta').style.display = 'block'; }
+    else{ document.getElementById('sticky-cta').style.display = 'none'; }
+  }
+  window.addEventListener('resize', check);
+  document.addEventListener('DOMContentLoaded', check);
+  check();
+})();
+</script>
+
+
+<script id="lazy-images-init">
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('img:not([loading])').forEach(function(img){ img.setAttribute('loading','lazy'); });
+});
+</script>
+
+
+<section id="limited-promo" style="padding:16px 20px;background:#ecfeff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0c4a6e">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <strong>Limited Time:</strong> Sign up by <strong>September 15, 2025</strong> and get <strong>2 weeks free</strong> (new customers).
+  </div>
+</section>
+
+
+<section id="apply-promo" style="padding:20px 20px;background:#ffffff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <p style="margin:0 0 8px;color:#374151">Have a promo code? You can enter it on the Stripe checkout page.</p>
+    <div style="display:inline-flex;gap:8px;align-items:center">
+      <input id="promo-input" placeholder="Enter promo (e.g., CURB2WEEKS)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
+      <button onclick="copyPromo()" style="background:#0ea5e9;color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer">Copy Code</button>
+    </div>
+    <p id="promo-msg" style="color:#16a34a;margin:8px 0 0;display:none">Promo copied — paste it on the Stripe checkout page.</p>
+  </div>
+</section>
+<script>
+function copyPromo(){
+  var el = document.getElementById('promo-input');
+  if(!el.value){ el.value = 'CURB2WEEKS'; }
+  el.select();
+  document.execCommand('copy');
+  var msg = document.getElementById('promo-msg');
+  if(msg){ msg.style.display = 'block'; setTimeout(function(){ msg.style.display='none'; }, 2500); }
+}
+</script>
+
+
+<section id="referral-capture" style="padding:20px 20px;background:#ffffff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <div style="max-width:900px;margin:0 auto">
+    <label style="font-weight:600;display:block;margin-bottom:8px">Were you referred by someone?</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <input id="customer-email" placeholder="Your email (to match in Stripe)" type="email" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
+      <input id="referrer-name" placeholder="Referrer name (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:240px">
+      <input id="referrer-email" placeholder="Referrer email (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
+      <input id="referral-code" placeholder="Referral code (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:200px">
+    </div>
+    <p style="color:#6b7280;margin:8px 0 0">We’ll use this to credit your referrer with a free week.</p>
+  </div>
+</section>
+
+<section style="padding:8px 20px;background:#e0f2fe;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#075985">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <strong>New here?</strong> If a neighbor referred you, use promo code <strong>CURB1WEEK</strong> at checkout for your <strong>first week free</strong>.
+  </div>
+</section>
+
+<form name="referral-capture" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="referral-capture">
+  <input type="text" name="bot-field">
+  <input type="text" name="referrer_name">
+  <input type="email" name="referrer_email">
+  <input type="text" name="referral_code">
+  <input type="email" name="customer_email">
+  <input type="text" name="plan_selected">
+</form>
+
+<script>
+function encodeForm(data){
+  const params = [];
+  for(const k in data){ params.push(encodeURIComponent(k)+'='+encodeURIComponent(data[k]||'')); }
+  return params.join('&');
+}
+
+async function logReferralToNetlify(plan){
+  try {
+    const name = (document.getElementById('referrer-name')||{}).value || '';
+    const email = (document.getElementById('referrer-email')||{}).value || '';
+    const code = (document.getElementById('referral-code')||{}).value || '';
+    localStorage.setItem('curbease_ref_name', name);
+    localStorage.setItem('curbease_ref_email', email);
+    localStorage.setItem('curbease_ref_code', code);
+    // We don't have customer email pre-checkout; can be appended later via Stripe webhook → Zapier.
+    const payload = {
+      'form-name': 'referral-capture',
+      'referrer_name': name,
+      'referrer_email': email,
+      'referral_code': code,
+      'plan_selected': plan,
+      'customer_email': (document.getElementById('customer-email')||{}).value || ''
+    };
+    await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeForm(payload)
+    });
+  } catch(e){ /* no-op */ }
+}
+</script>
+
 </body>
 </html>
