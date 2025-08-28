@@ -1,491 +1,90 @@
-
-<style>
-/* Inline fallback: keeps layout readable if external CSS is cached/missing */
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:#0f172a;background:#ffffff}
-main,.container{max-width:1100px;margin:0 auto;padding:24px 16px}
-h1,h2,h3{margin:0 0 12px}
-.btn{display:inline-block;padding:12px 16px;border-radius:10px}
-.btn--primary,.btn-primary{background:#0ea5e9;color:#fff}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 4px 24px rgba(2,6,23,.06);padding:16px}
-</style>
-<link rel="stylesheet" href="/fixes.css">
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CurbEase Bin Valet – Prosper • Light Farms</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='64' fill='%231e3a8a'/%3E%3Cpath d='M20 70l24-24 16 16 28-28 20 20v28H20z' fill='%23fff'/%3E%3C/svg%3E" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CurbEase Bin Valet – Weekly Trash-to-Curb Service</title>
+
+<!-- Robust inline fallback CSS (so page looks good even if external CSS fails) -->
 <style>
-:root{
-  --navy:#0b1223;
-  --blue:#2563eb;
-  --blue-dark:#1e40af;
-  --red-accent:#dc2626;
-  --ink:#0f172a;
-  --muted:#475569;
-  --card:#ffffff;
-  --border:#e5e7eb;
-}
+:root{--ink:#0f172a;--muted:#475569;--bg:#ffffff;--card:#ffffff;--line:#e5e7eb;--brand:#0ea5e9;--brand2:#0369a1}
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
-  background:radial-gradient(1200px 600px at 50% -10%,#eef2ff 0%,#f3f4f6 45%,#f8fafc 100%)}
-a{color:var(--blue);text-decoration:none}
-a:hover{text-decoration:underline}
-.container{max-width:1180px;margin:0 auto;padding:0 20px}
-
-/* NAV */
-nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--border)}
-nav .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
-.brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
-.brand .badge{font-weight:800;letter-spacing:.1px}
-.brand .sub{color:#64748b}
-.logo{width:38px;height:38px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
-.nav-main{display:none;gap:16px}
-.actions{display:flex;align-items:center;gap:10px}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .95rem;border-radius:12px;border:1px solid var(--blue);background:var(--blue);color:#fff;transition:transform .15s ease, box-shadow .15s ease}
-.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,.25)}
-.btn-primary{background:var(--blue);border-color:var(--blue)}
-.btn-outline{background:#fff;border-color:#cbd5e1;color:var(--ink)}
-.menu-toggle{display:inline-flex;padding:.45rem .75rem;border-radius:12px;border:1px solid #cbd5e1;background:#fff}
-@media(min-width:980px){ .nav-main{display:flex} .menu-toggle{display:none} }
-
-/* MOBILE MENU OVERLAY */
-.mobile-menu[hidden]{display:none}
-.mobile-menu{position:fixed;inset:0;display:grid;grid-template-rows:auto 1fr;background:rgba(11,18,35,0.9);backdrop-filter:blur(8px)}
-.mobile-menu .panel{max-width:520px;margin:16px auto;background:#0b1223;border:1px solid #1f2937;border-radius:16px;padding:16px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.mobile-menu .item{display:block;padding:.85rem 1rem;border-radius:12px;color:#fff}
-.mobile-menu .item:hover{background:rgba(255,255,255,0.08)}
-.mobile-menu .actions .btn{width:100%}
-
-/* HERO */
-.hero{padding:64px 0 36px;background:linear-gradient(120deg,#0b1223 0%, #1e3a8a 55%, #2563eb 100%);color:#fff;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(800px 280px at 40% 20%,rgba(255,255,255,.12),transparent 65%);pointer-events:none}
-.hero .wrap{display:grid;gap:18px;grid-template-columns:1fr}
-.hero h1{font-size:2.8rem;margin:0 0 .4rem}
-.hero p{color:#e2e8f0}
-@media(min-width:980px){ .hero .wrap{grid-template-columns:1.05fr .95fr} .hero h1{font-size:3.3rem} }
-
-/* TRUST BADGE */
-.trust-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.35rem .65rem;border-radius:999px;
-  background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.30);color:#ffe4e6;font-weight:800;letter-spacing:.2px;line-height:1}
-.trust-badge .dot{width:4px;height:4px;border-radius:999px;background:rgba(255,255,255,.85);display:inline-block}
-.trust-badge strong{color:#fff}
-.trust-badge svg{flex:0 0 auto}
-
-/* DONATION BADGE (hero) */
-.donate-badge{display:inline-flex;align-items:center;gap:.55rem;margin-top:.5rem;
-  padding:.5rem .75rem;border-radius:12px;
-  background:linear-gradient(120deg,#991b1b,#dc2626 60%,#ef4444);
-  color:#fff;font-weight:900;letter-spacing:.2px;box-shadow:0 8px 18px rgba(220,38,38,.35);
-  border:1px solid rgba(255,255,255,.22)}
-.donate-badge svg{filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
-.donate-badge .subtext{font-weight:700;color:#fffbeb}
-
-/* HERO BINS */
-#bins-hero{width:100%;max-width:520px;margin:auto;display:block;filter:drop-shadow(0 18px 28px rgba(0,0,0,.25))}
-
-/* SECTIONS */
-section{padding:64px 0}
-.lead{color:#475569}
-.grid{display:grid;gap:18px}
-
-/* PRICING */
-.pricing{grid-template-columns:1fr}
-@media(min-width:980px){ .pricing{grid-template-columns:repeat(4,1fr)} }
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 6px 16px rgba(15,23,42,.04);transition:transform .15s ease, box-shadow .15s ease}
-.card:hover{transform:translateY(-4px);box-shadow:0 14px 26px rgba(15,23,42,.12)}
-.card h3{margin-top:6px}
-.price{font-size:2rem;color:var(--ink)} .price .small{font-size:1rem;color:#475569}
-.features{color:#475569}
-
-/* PRICING COLOR VARIANTS */
-.plan{position:relative;overflow:hidden}
-.plan .tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.9);color:#0b1223;
-  border-radius:999px;padding:.25rem .6rem;font-weight:700;font-size:.8rem;border:1px solid rgba(0,0,0,.08)}
-.plan-basic{background:linear-gradient(180deg,#ecfdf5 0%,#ffffff 75%);border-color:#bbf7d0}
-.plan-basic .price{color:#065f46}
-.plan-standard{background:linear-gradient(180deg,#eff6ff 0%,#ffffff 75%);border-color:#bfdbfe}
-.plan-standard .price{color:#1e3a8a}
-.plan-premium{background:linear-gradient(180deg,#faf5ff 0%,#ffffff 75%);border-color:#e9d5ff}
-.plan-premium .price{color:#6b21a8}
-.plan-business{background:linear-gradient(180deg,#fff7ed 0%,#ffffff 75%);border-color:#fed7aa}
-.plan-business .price{color:#9a3412}
-.plan .features li{margin:.2rem 0}
-
-/* WHAT WE DO */
-.wedo{grid-template-columns:1fr}
-@media(min-width:980px){ .wedo{grid-template-columns:repeat(3,1fr)} }
-.feature{position:relative;overflow:hidden}
-.feature .icon{width:40px;height:40px;display:inline-block;margin-bottom:.35rem}
-.feature p{color:#48556a}
-.feature.accent{border-color:#bfdbfe;background:linear-gradient(180deg,#eff6ff,#ffffff)}
-
-/* ABOUT — standout ribbon/card */
-.about-wrap{position:relative}
-.ribbon{position:absolute;top:-18px;left:0;display:inline-flex;align-items:center;gap:.6rem;
-  background:linear-gradient(120deg,#991b1b,#dc2626 60%,#ef4444);color:#fff;
-  padding:.5rem .85rem;border-radius:12px;box-shadow:0 8px 18px rgba(220,38,38,.35);font-weight:900;letter-spacing:.3px}
-.ribbon svg{filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
-.about-card{background:linear-gradient(120deg, #ffffff 0%, #f8fafc 60%, #eff6ff 100%);
-  border:2px solid #bfdbfe;border-radius:16px;padding:24px;box-shadow:0 12px 28px rgba(30,64,175,.15)}
-.about-card h3{margin-top:6px}
-.about-grid{display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:980px){ .about-grid{grid-template-columns:1.2fr .8fr} }
-.big-claim{font-size:1.25rem;color:#1e3a8a;font-weight:800;margin:.4rem 0 0}
-.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.35rem}
-.badge-outline{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .6rem;border-radius:999px;
-  border:1px dashed #1e3a8a;color:#1e3a8a;background:#fff}
-
-/* FORMS */
-label{display:block;font-weight:600;margin:.6rem 0 .25rem}
-input,textarea,select{width:100%;padding:.7rem .8rem;border:1px solid #d1d5db;border-radius:10px;background:#fff;font-size:1rem}
-textarea{min-height:110px;resize:vertical}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
-/* FOOTER */
-footer{padding:24px 0;color:#475569;border-top:1px solid var(--border);background:#fff}
-
-/* UTIL */
-.hidden{display:none !important}
-.success{background:linear-gradient(120deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:16px}
-.badge-chip{display:inline-block;padding:.25rem .5rem;border-radius:999px;background:#eff6ff;color:#1e3a8a;font-size:.8rem;margin-right:.35rem}
-.small{font-size:.92rem;color:#64748b}
-
-/* Added by helper: /* footer/link alignment and nav fixes */
-footer .copyright { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; align-items:center; }
-footer .copyright a { text-decoration: underline; }
-
-
-
-/* --- Site Hybrid: Diagonal U.S. flag watermark (homepage only) --- */
-
-body::before {
-  content: "";
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 180vw;
-  height: 180vh;
-  transform: translate(-50%, -50%) rotate(-14deg);
-  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzAgMzAwIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJzdHJpcGUiIHdpZHRoPSI1NzAiIGhlaWdodD0iNDYiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cmVjdCB3aWR0aD0iNTcwIiBoZWlnaHQ9IjIzIiB5PSIwIiBmaWxsPSIjYjkxYzFjIi8+CiAgICAgIDxyZWN0IHdpZHRoPSI1NzAiIGhlaWdodD0iMjMiIHk9IjIzIiBmaWxsPSIjZmZmZmZmIi8+CiAgICA8L3BhdHRlcm4+CiAgICA8cGF0dGVybiBpZD0ic3RhcnMiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyNiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxwb2x5Z29uIHBvaW50cz0iNiwwIDcuNSw1IDEyLDUgOC41LDggMTAsMTMgNiwxMC41IDIsMTMgMy41LDggMCw1IDQuNSw1IiBmaWxsPSIjZmZmZmZmIi8+CiAgICA8L3BhdHRlcm4+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI1NzAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI3N0cmlwZSkiLz4KICA8cmVjdCB3aWR0aD0iMjI4IiBoZWlnaHQ9IjE2MSIgZmlsbD0iIzFlM2E4YSIvPgogIDxyZWN0IHdpZHRoPSIyMjgiIGhlaWdodD0iMTYxIiBmaWxsPSJ1cmwoI3N0YXJzKSIgb3BhY2l0eT0iMC44NSIvPgo8L3N2Zz4=') 28% 22% / cover no-repeat;
-  opacity: .10;
-  z-index: -1;
-  pointer-events: none;
-}
-
-
+html,body{height:100%}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:var(--brand);text-decoration:none} a:hover{color:var(--brand2);text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:24px 16px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+.logo{font-weight:800;letter-spacing:.2px}
+.nav a{margin:0 8px;color:var(--ink)}
+.hero{display:grid;gap:16px;grid-template-columns:1.2fr .8fr;align-items:center}
+.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:.2em 0}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:13px}
+.btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700}
+.btn-primary{background:var(--brand);color:white} .btn-primary:hover{background:var(--brand2)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink)}
+.grid{display:grid;gap:16px}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 24px rgba(2,6,23,.06)}
+.card h3{margin:.2em 0}
+.footer{padding:24px 16px;color:#64748b;border-top:1px solid var(--line);text-align:center;margin-top:40px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
 </style>
 
+<!-- External CSS (served by Netlify). The inline fallback above covers you if this fails to load for any reason. -->
+<link rel="stylesheet" href="/fixes.css">
+</head>
+<body>
+<header class="container header">
+  <div class="logo">CurbEase Bin Valet</div>
+  <nav class="nav">
+    <a href="/#pricing">Pricing</a>
+    <a href="/b2b.html">B2B</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
 
-
-<section id="trust-badges" style="padding:14px 20px;background:#f3f4f6;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
-  <div style="max-width:1100px;margin:0 auto;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;color:#111827">
-    <div title="Police-officer-owned" style="display:flex;align-items:center;gap:8px"><span>👮‍♂️</span><span>Police‑officer‑owned</span></div>
-    <div title="Insured & background-checked" style="display:flex;align-items:center;gap:8px"><span>🛡️</span><span>Insured & background‑checked</span></div>
-    <div title="Supports veterans charities" style="display:flex;align-items:center;gap:8px"><span>🇺🇸</span><span>Supports veterans charities</span></div>
-    <div title="Secure checkout" style="display:flex;align-items:center;gap:8px"><span>🔒</span><span>Secure Stripe checkout</span></div>
+<main class="container">
+  <div class="hero">
+    <div>
+      <span class="badge">Weekly trash-to-curb pickup • Police-officer–owned</span>
+      <h1>We roll your cans to the curb — and back.</h1>
+      <p style="color:#475569">Reliable weekly service that keeps your driveway clean, prevents pests, and saves you time. Serving Prosper, Celina, Light Farms & surrounding areas.</p>
+      <div style="display:flex;gap:12px;margin:10px 0 24px">
+        <a class="btn btn-primary" href="#pricing">Choose a plan</a>
+        <a class="btn btn-ghost" href="/contact.html">Questions?</a>
+      </div>
+      <ul style="color:#475569;margin:0;padding-left:18px">
+        <li>Text reminders with pickup day/time window</li>
+        <li>Gate & garage code support</li>
+        <li>Rain / holiday schedule built-in</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why Premium</h3>
+      <p style="color:#475569;margin-top:8px">Hygiene & smell control, maggot prevention, and dirty-lid wipe-downs after city pickup.</p>
+      <ul style="color:#475569;margin:0;padding-left:18px">
+        <li>Lid/lip wipe-downs</li>
+        <li>Leaked trash pickup</li>
+        <li>Bin upright & tucked back neatly</li>
+      </ul>
+    </div>
   </div>
 
-    <details style="margin:8px 0; background:#fff; padding:12px 16px; border-radius:12px; border:1px solid #e5e7eb;"><summary><strong>What if there’s a missed pickup?</strong></summary><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
-  </div>
-</section>
+  <section id="pricing" style="margin-top:28px">
+    <h2>Simple Pricing</h2>
+    <div class="grid grid-3" style="margin-top:12px">
+      <div class="card"><h3>Basic — $30/mo</h3><p style="color:#475569">Weekly pull-to-curb & return.</p><a class="btn btn-primary" href="/thank-you.html?plan=basic">Get Basic</a></div>
+      <div class="card"><h3>Standard — $45/mo</h3><p style="color:#475569">Includes missed-day recovery.</p><a class="btn btn-primary" href="/thank-you.html?plan=standard">Get Standard</a></div>
+      <div class="card"><h3>Premium — $60/mo</h3><p style="color:#475569">Smell control + wipe-down service.</p><a class="btn btn-primary" href="/thank-you.html?plan=premium">Get Premium</a></div>
+    </div>
+    <p style="color:#475569;margin-top:10px">Refer a neighbor: both get the first week free. Unlimited referrals.</p>
+  </section>
+</main>
 
+<footer class="footer">
+  <div>© <span id="year"></span> CurbEase Bin Valet · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/admin.html">Admin</a></div>
 </footer>
 
-
-<script>
-(function(){
-  function $(s,r){return (r||document).querySelector(s)}
-  function $all(s,r){return Array.from((r||document).querySelectorAll(s))}
-  function getParam(name){return new URLSearchParams(location.search).get(name)}
-  function closeMenu(){ const mm=$('#mobile-menu'); if(!mm) return; mm.hidden=true; document.body.style.removeProperty('overflow'); }
-
-  const CHANNELS = {
-    eddm: {medium:'postcard'}, door: {medium:'doordrop'}, yard: {medium:'outdoor'},
-    nextdoor: {medium:'social'}, nextdoor_ad: {medium:'paid_social'}, fb_group: {medium:'social'},
-    fb_ads: {medium:'paid_social'}, gbp: {medium:'listing'}, email: {medium:'email'},
-    sms: {medium:'sms'}, referral: {medium:'referral'}, gads: {medium:'paid_search'}, website: {medium:'onsite'}
-  };
-
-  const PLAN_URLS = { basic: "https://buy.stripe.com/3cIdR328c0KXbAobWJ9oc02", standard: "https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03", premium: "https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04" };
-
-  function withUTM(base, channel, plan){
-    const ch = CHANNELS[channel] ? channel : 'website';
-    const medium = CHANNELS[ch].medium;
-    const u = new URL(base);
-    u.searchParams.set('utm_source', ch);
-    u.searchParams.set('utm_medium', medium);
-    u.searchParams.set('utm_campaign', 'lf_launch_2025q3');
-  if (plan) u.searchParams.set('plan', plan);
-    if (plan) u.searchParams.set('utm_content', plan);
-    return u.toString();
-  }
-
-  function applyUTMs(){
-    const ch = (getParam('c')||'website').toLowerCase();
-    $all('.sub-btn').forEach(a=>{ const plan = (a.getAttribute('data-plan')||'').toLowerCase(); const base = PLAN_URLS[plan]; if(base) a.href = withUTM(base, ch, plan); });
-    const chField = $('#channel-field'); if(chField) chField.value = ch;
-    const chFieldBiz = $('#channel-field-biz'); if(chFieldBiz) chFieldBiz.value = ch;
-  }
-
-  function loadPlacesIfKey(){
-    const key = document.body.getAttribute('data-places-key') || '';
-    if(!key) return;
-    const s = document.createElement('script');
-    s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&libraries=places&callback=__placesReady';
-    s.async = true; s.defer = true;
-    document.head.appendChild(s);
-  }
-  window.__placesReady = function(){ try { initAutocomplete(); } catch(e) { console.warn('Places init error', e); } };
-
-  function parseAddressComponents(ac){
-    const out = { line1:'', city:'', state:'', zip:'' };
-    const comps = ac || [];
-    let num = '', route = '';
-    comps.forEach(c=>{ const t = c.types || []; if(t.includes('street_number')) num = c.long_name; if(t.includes('route')) route = c.long_name;
-      if(t.includes('locality')) out.city = c.long_name; if(t.includes('postal_town') && !out.city) out.city = c.long_name;
-      if(t.includes('administrative_area_level_1')) out.state = c.short_name; if(t.includes('postal_code')) out.zip = c.long_name; });
-    out.line1 = (num && route) ? (num + ' ' + route) : (route || num || ''); return out;
-  }
-
-  function bindAutocomplete(input, onSelect){
-    if(!window.google || !google.maps || !google.maps.places) return;
-    const ac = new google.maps.places.Autocomplete(input, { fields: ['address_components','geometry','name'], componentRestrictions: { country: ['us'] } });
-    try { const sw = new google.maps.LatLng(33.16,-96.86); const ne = new google.maps.LatLng(33.28,-96.72); ac.setBounds(new google.maps.LatLngBounds(sw, ne)); } catch(e){}
-    ac.addListener('place_changed', function(){ const place = ac.getPlace(); const parsed = parseAddressComponents(place.address_components || []); if(typeof onSelect === 'function') onSelect(parsed); });
-  }
-
-  function saveLocalAddress(a){ try { localStorage.setItem('ce_line1', a.line1 || ''); localStorage.setItem('ce_city', a.city || ''); localStorage.setItem('ce_state', a.state || ''); localStorage.setItem('ce_zip', a.zip || ''); } catch(e){} }
-  function loadLocalAddress(){ try { return { line1: localStorage.getItem('ce_line1') || '', city: localStorage.getItem('ce_city') || '', state: localStorage.getItem('ce_state') || '', zip: localStorage.getItem('ce_zip') || '' }; } catch(e){ return {line1:'',city:'',state:'',zip:''}; } }
-
-  function prefillFromLocal(){
-    const a = loadLocalAddress();
-    if(a.line1) { const f=$('#addr1'); if(f) f.value=a.line1; }
-    if(a.city) { const f=$('#city'); if(f) f.value=a.city; }
-    if(a.state){ const f=$('#state'); if(f) f.value=a.state; }
-    if(a.zip)  { const f=$('#zip');   if(f) f.value=a.zip; }
-    const s=$('#subscribe-address'); if(s && a.line1) s.value = [a.line1, a.city, a.state, a.zip].filter(Boolean).join(', ');
-    const b=$('#bizaddr'); if(b && a.line1) b.value = [a.line1, a.city, a.state, a.zip].filter(Boolean).join(', ');
-  }
-
-  function initAutocomplete(){
-    const sub = $('#subscribe-address'); if(sub) bindAutocomplete(sub, function(a){ saveLocalAddress(a); prefillFromLocal(); });
-    const addr1 = $('#addr1'); if(addr1) bindAutocomplete(addr1, function(a){ if(a.line1) addr1.value = a.line1; const city=$('#city'), state=$('#state'), zip=$('#zip'); if(city) city.value = a.city || city.value; if(state) state.value = a.state || state.value; if(zip) zip.value = a.zip || zip.value; saveLocalAddress(a); });
-    const biz = $('#bizaddr'); if(biz) bindAutocomplete(biz, function(a){ if(a.line1 || a.city) biz.value = [a.line1,a.city,a.state,a.zip].filter(Boolean).join(', '); });
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    const toggle=$('.menu-toggle'); const menu=$('#mobile-menu');
-    if(toggle && menu){ toggle.addEventListener('click', function(e){ e.stopPropagation(); const expanded=this.getAttribute('aria-expanded')==='true'; this.setAttribute('aria-expanded', !expanded); menu.hidden = expanded; if(!expanded){ document.body.style.overflow='hidden'; } else { document.body.style.removeProperty('overflow'); } });
-      menu.addEventListener('click', function(e){ if(e.target===menu) closeMenu(); });
-      $all('.mobile-menu .item, .mobile-menu .btn', menu).forEach(el=> el.addEventListener('click', closeMenu));
-      document.addEventListener('click', function(e){ const within = menu.contains(e.target) || (toggle && toggle.contains(e.target)); if(!within) closeMenu(); }, true);
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
-    }
-    function revealAnchors(){ const hash = (location.hash || '').toLowerCase();
-      if(hash === '#thank-you'){ $('#thank-you')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#thank-you').offsetTop - 60, behavior: 'smooth' }); }
-      if(hash === '#update-thanks'){ $('#update-thanks')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#update-thanks').offsetTop - 60, behavior: 'smooth' }); }
-      if(hash === '#biz-thanks'){ $('#biz-thanks')?.classList.remove('hidden'); window.scrollTo({ top: document.querySelector('#biz-thanks').offsetTop - 60, behavior: 'smooth' }); }
-    }
-    revealAnchors(); window.addEventListener('hashchange', revealAnchors);
-    prefillFromLocal(); applyUTMs(); loadPlacesIfKey();
-  });
-})();
-</script>
-
-<script>
-// Collapsible forms + ensure menu script keeps running
-document.addEventListener('DOMContentLoaded', function(){
-  try{
-    const upBtn = document.getElementById('toggle-update');
-    const upForm = document.querySelector('form[name="service-updates"]');
-    if(upBtn && upForm){
-      upBtn.addEventListener('click', ()=>{
-        upForm.hidden = !upForm.hidden;
-        upBtn.textContent = upForm.hidden ? 'Update Service Details' : 'Hide Update Form';
-      });
-    }
-    const bizBtn = document.getElementById('toggle-biz');
-    const bizForm = document.querySelector('form[name="business-request"]');
-    if(bizBtn && bizForm){
-      bizBtn.addEventListener('click', ()=>{
-        bizForm.hidden = !bizForm.hidden;
-        bizBtn.textContent = bizForm.hidden ? 'Business Request (10+ bins)' : 'Hide Business Form';
-      });
-    }
-  }catch(e){ console.error(e); }
-});
-</script>
-
-
-<script>
-(function(){
-  var ADMIN_PASS = "AmwTrw@2425";
-  var link = document.getElementById('footer-admin-link');
-  if (link){
-    link.addEventListener('click', function(e){
-      e.preventDefault();
-      var input = prompt('Enter admin password:');
-      if (input && input === ADMIN_PASS){
-        window.location.href = '/admin.html';
-      } else if (input !== null) {
-        alert('Incorrect password.');
-      }
-    });
-  }
-})();
-</script>
-
-<a id="mission"></a>
-<a id="freepickup"></a>
-<a id="savetime"></a>
-  <script src="/assets/js/stripe-links.js" defer></script>
-
-<section id="why-premium" style="padding:40px 20px; background:#ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
-  <div style="max-width:900px; margin:0 auto;">
-    <h3 style="font-size:1.6rem; margin:0 0 10px;">Why Premium?</h3>
-    <p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
-  </div>
-</section>
-
-</footer></blockquote>
-      <blockquote style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin:0"><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
-  </div>
-</section>
-
-</footer></blockquote>
-      <blockquote style="background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin:0"><p style="margin:0"><em>Referral credit applied after your neighbor completes sign‑up and first service.</em></p>
-  </div>
-</section>
-
-</footer></blockquote>
-    </div>
-  </div>
-</section>
-<style>
-@media (max-width: 900px){
-  #testimonials div[style*="grid-template-columns"]{ grid-template-columns: 1fr; }
-}
-</style>
-
-
-<div id="sticky-cta" style="position:fixed;bottom:0;left:0;right:0;background:#111827;color:#fff;padding:10px 12px;display:none;z-index:9999">
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-    <span style="font-weight:600">Ready to sign up?</span>
-    <a href="#" onclick="return goSubscribe('standard')" style="background:#22c55e;color:#052e12;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800">Get Standard</a>
-  </div>
-</div>
-<script>
-(function(){
-  function check(){
-    if(window.innerWidth < 760){ document.getElementById('sticky-cta').style.display = 'block'; }
-    else{ document.getElementById('sticky-cta').style.display = 'none'; }
-  }
-  window.addEventListener('resize', check);
-  document.addEventListener('DOMContentLoaded', check);
-  check();
-})();
-</script>
-
-
-<script id="lazy-images-init">
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('img:not([loading])').forEach(function(img){ img.setAttribute('loading','lazy'); });
-});
-</script>
-
-
-<section id="limited-promo" style="padding:16px 20px;background:#ecfeff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0c4a6e">
-  <div style="max-width:1100px;margin:0 auto;text-align:center">
-    <strong>Limited Time:</strong> Sign up by <strong>September 15, 2025</strong> and get <strong>2 weeks free</strong> (new customers).
-  </div>
-</section>
-
-
-<section id="apply-promo" style="padding:20px 20px;background:#ffffff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
-  <div style="max-width:900px;margin:0 auto;text-align:center">
-    <p style="margin:0 0 8px;color:#374151">Have a promo code? You can enter it on the Stripe checkout page.</p>
-    <div style="display:inline-flex;gap:8px;align-items:center">
-      <input id="promo-input" placeholder="Enter promo (e.g., CURB2WEEKS)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
-      <button onclick="copyPromo()" style="background:#0ea5e9;color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer">Copy Code</button>
-    </div>
-    <p id="promo-msg" style="color:#16a34a;margin:8px 0 0;display:none">Promo copied — paste it on the Stripe checkout page.</p>
-  </div>
-</section>
-<script>
-function copyPromo(){
-  var el = document.getElementById('promo-input');
-  if(!el.value){ el.value = 'CURB2WEEKS'; }
-  el.select();
-  document.execCommand('copy');
-  var msg = document.getElementById('promo-msg');
-  if(msg){ msg.style.display = 'block'; setTimeout(function(){ msg.style.display='none'; }, 2500); }
-}
-</script>
-
-
-<section id="referral-capture" style="padding:20px 20px;background:#ffffff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
-  <div style="max-width:900px;margin:0 auto">
-    <label style="font-weight:600;display:block;margin-bottom:8px">Were you referred by someone?</label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <input id="customer-email" placeholder="Your email (to match in Stripe)" type="email" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
-      <input id="referrer-name" placeholder="Referrer name (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:240px">
-      <input id="referrer-email" placeholder="Referrer email (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:260px">
-      <input id="referral-code" placeholder="Referral code (optional)" style="padding:10px;border:1px solid #e5e7eb;border-radius:10px;min-width:200px">
-    </div>
-    <p style="color:#6b7280;margin:8px 0 0">We’ll use this to credit your referrer with a free week.</p>
-  </div>
-</section>
-
-<section style="padding:8px 20px;background:#e0f2fe;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#075985">
-  <div style="max-width:1100px;margin:0 auto;text-align:center">
-    <strong>New here?</strong> If a neighbor referred you, use promo code <strong>CURB1WEEK</strong> at checkout for your <strong>first week free</strong>.
-  </div>
-</section>
-
-<form name="referral-capture" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="referral-capture">
-  <input type="text" name="bot-field">
-  <input type="text" name="referrer_name">
-  <input type="email" name="referrer_email">
-  <input type="text" name="referral_code">
-  <input type="email" name="customer_email">
-  <input type="text" name="plan_selected">
-</form>
-
-<script>
-function encodeForm(data){
-  const params = [];
-  for(const k in data){ params.push(encodeURIComponent(k)+'='+encodeURIComponent(data[k]||'')); }
-  return params.join('&');
-}
-
-async function logReferralToNetlify(plan){
-  try {
-    const name = (document.getElementById('referrer-name')||{}).value || '';
-    const email = (document.getElementById('referrer-email')||{}).value || '';
-    const code = (document.getElementById('referral-code')||{}).value || '';
-    localStorage.setItem('curbease_ref_name', name);
-    localStorage.setItem('curbease_ref_email', email);
-    localStorage.setItem('curbease_ref_code', code);
-    // We don't have customer email pre-checkout; can be appended later via Stripe webhook → Zapier.
-    const payload = {
-      'form-name': 'referral-capture',
-      'referrer_name': name,
-      'referrer_email': email,
-      'referral_code': code,
-      'plan_selected': plan,
-      'customer_email': (document.getElementById('customer-email')||{}).value || ''
-    };
-    await fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeForm(payload)
-    });
-  } catch(e){ /* no-op */ }
-}
-</script>
-
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

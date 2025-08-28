@@ -1,2 +1,4 @@
-/*
-  X-Content-Type-Options: nosniff
+/* Ensure CSS gets the correct MIME type */
+# This rule helps if the server ever guesses wrong for .css
+/*.css
+  Content-Type: text/css; charset=utf-8
