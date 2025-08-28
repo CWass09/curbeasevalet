@@ -1,0 +1,35 @@
+{
+  "zaps": [
+    {
+      "name": "Netlify Form \u2192 Google Sheets",
+      "trigger": "Netlify: New Form Submission (form-name=referral-capture)",
+      "actions": [
+        "Google Sheets: Create Spreadsheet Row (map fields)"
+      ]
+    },
+    {
+      "name": "Stripe Checkout \u2192 Google Sheets Join",
+      "trigger": "Stripe: Checkout Session Completed",
+      "actions": [
+        "Google Sheets: Lookup Row by Customer Email",
+        "Google Sheets: Update Row with Stripe Session ID & Customer ID"
+      ]
+    },
+    {
+      "name": "Apply Referrer Credit in Stripe",
+      "trigger": "Google Sheets: Updated Row with Referrer Email",
+      "actions": [
+        "Stripe: Find Customer by Referrer Email",
+        "Stripe: Apply 1 Week Free (Coupon OR Credit Transaction)",
+        "Google Sheets: Update Row (Credit Applied=Yes)"
+      ]
+    },
+    {
+      "name": "Referred Customer Promo",
+      "trigger": "Stripe: Checkout Completed with CURB1WEEK",
+      "actions": [
+        "Stripe: Update Subscription with Coupon (if not using trial)"
+      ]
+    }
+  ]
+}
