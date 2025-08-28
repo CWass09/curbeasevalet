@@ -1,3 +1,3 @@
-/* Force correct MIME for CSS (just in case) */
-/*.css
-  Content-Type: text/css; charset=utf-8
+/* Ensure correct CSS MIME type */
+  /*.css
+    Content-Type: text/css; charset=utf-8
