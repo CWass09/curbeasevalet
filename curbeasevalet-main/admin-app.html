@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CurbEase Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0b0e; color:#e9e9ef; }
+    header { display:flex; gap:12px; align-items:center; padding:14px 16px; border-bottom:1px solid #23232a; position:sticky; top:0; background:#0b0b0e; z-index:2; }
+    .badge { font-size:12px; padding:4px 8px; border-radius:999px; background:#15151b; border:1px solid #2b2b35; }
+    input[type="search"] { background:#121219; border:1px solid #2b2b35; color:#e9e9ef; padding:10px 12px; border-radius:8px; flex:1; }
+    button { background:#1b1b25; border:1px solid #2f2f3a; color:#f5f5ff; padding:10px 12px; border-radius:8px; cursor:pointer; }
+    button:hover { background:#222231; }
+    main { padding:16px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:10px 8px; border-bottom:1px solid #22222a; font-size:14px; }
+    th { text-align:left; color:#cfcfe8; position:sticky; top:56px; background:#0b0b0e; z-index:1; }
+    .muted { color:#a4a4b6; }
+    .status { display:flex; gap:8px; align-items:center; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#888; }
+    .dot.ok { background:#4caf50; }
+    .dot.err { background:#ef5350; }
+    .dot.load { background:#fdd663; }
+    .wrap { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:420px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>CurbEase Admin</strong>
+    <span id="statusBadge" class="badge">Idle</span>
+    <div class="status"><span id="statusDot" class="dot"></span><span id="statusText" class="muted">Waiting…</span></div>
+    <input id="search" type="search" placeholder="Search name, email, address, plan, status…" autocomplete="off">
+    <button id="refreshBtn" title="Force re-fetch">Refresh</button>
+  </header>
+
+  <main>
+    <table id="subsTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th class="wrap">Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>
+          <th>Pickup Day</th>
+          <th>Bin Location</th>
+          <th>Plan</th>
+          <th>Status</th>
+          <th>Subscription ID</th>
+          <th>Customer ID</th>
+        </tr>
+      </thead>
+      <tbody id="subsTbody"></tbody>
+    </table>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
+  <script src="/admin-app.js" defer></script>
+</body>
+</html>
