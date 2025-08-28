@@ -1,4 +1,3 @@
-/* Ensure CSS gets the correct MIME type */
-# This rule helps if the server ever guesses wrong for .css
+/* Force correct MIME for CSS (just in case) */
 /*.css
   Content-Type: text/css; charset=utf-8

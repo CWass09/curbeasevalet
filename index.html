@@ -4,87 +4,66 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CurbEase Bin Valet – Weekly Trash-to-Curb Service</title>
-
-<!-- Robust inline fallback CSS (so page looks good even if external CSS fails) -->
-<style>
-:root{--ink:#0f172a;--muted:#475569;--bg:#ffffff;--card:#ffffff;--line:#e5e7eb;--brand:#0ea5e9;--brand2:#0369a1}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-a{color:var(--brand);text-decoration:none} a:hover{color:var(--brand2);text-decoration:underline}
-.container{max-width:1100px;margin:0 auto;padding:24px 16px}
-.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
-.logo{font-weight:800;letter-spacing:.2px}
-.nav a{margin:0 8px;color:var(--ink)}
-.hero{display:grid;gap:16px;grid-template-columns:1.2fr .8fr;align-items:center}
-.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:.2em 0}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:13px}
-.btn{display:inline-block;padding:12px 16px;border-radius:12px;font-weight:700}
-.btn-primary{background:var(--brand);color:white} .btn-primary:hover{background:var(--brand2)}
-.btn-ghost{border:1px solid var(--line);color:var(--ink)}
-.grid{display:grid;gap:16px}
-.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 24px rgba(2,6,23,.06)}
-.card h3{margin:.2em 0}
-.footer{padding:24px 16px;color:#64748b;border-top:1px solid var(--line);text-align:center;margin-top:40px}
-@media (max-width:900px){.hero{grid-template-columns:1fr}}
+<style>/* tiny inline base so it never looks broken */
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0f172a}
+.container{max-width:1100px;margin:0 auto;padding:20px 18px}
 </style>
-
-<!-- External CSS (served by Netlify). The inline fallback above covers you if this fails to load for any reason. -->
 <link rel="stylesheet" href="/fixes.css">
 </head>
 <body>
-<header class="container header">
-  <div class="logo">CurbEase Bin Valet</div>
-  <nav class="nav">
-    <a href="/#pricing">Pricing</a>
-    <a href="/b2b.html">B2B</a>
-    <a href="/contact.html">Contact</a>
-  </nav>
-</header>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">CurbEase Bin Valet</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="/#pricing">Pricing</a>
+        <a href="/b2b.html">B2B</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <div class="hero">
-    <div>
-      <span class="badge">Weekly trash-to-curb pickup • Police-officer–owned</span>
+  <main class="container">
+    <section class="hero">
+      <span class="kicker">Weekly trash-to-curb pickup • Police-officer–owned</span>
       <h1>We roll your cans to the curb — and back.</h1>
-      <p style="color:#475569">Reliable weekly service that keeps your driveway clean, prevents pests, and saves you time. Serving Prosper, Celina, Light Farms & surrounding areas.</p>
-      <div style="display:flex;gap:12px;margin:10px 0 24px">
+      <p class="lead">Reliable weekly service that keeps your driveway clean, prevents pests, and saves you time. Serving Prosper, Celina, Light Farms & surrounding areas.</p>
+      <div class="actions">
         <a class="btn btn-primary" href="#pricing">Choose a plan</a>
         <a class="btn btn-ghost" href="/contact.html">Questions?</a>
       </div>
-      <ul style="color:#475569;margin:0;padding-left:18px">
+      <ul class="feature-list">
         <li>Text reminders with pickup day/time window</li>
-        <li>Gate & garage code support</li>
+        <li>Gate &amp; garage code support</li>
         <li>Rain / holiday schedule built-in</li>
       </ul>
-    </div>
-    <div class="card">
-      <h3>Why Premium</h3>
-      <p style="color:#475569;margin-top:8px">Hygiene & smell control, maggot prevention, and dirty-lid wipe-downs after city pickup.</p>
-      <ul style="color:#475569;margin:0;padding-left:18px">
-        <li>Lid/lip wipe-downs</li>
-        <li>Leaked trash pickup</li>
-        <li>Bin upright & tucked back neatly</li>
-      </ul>
-    </div>
-  </div>
+    </section>
 
-  <section id="pricing" style="margin-top:28px">
-    <h2>Simple Pricing</h2>
-    <div class="grid grid-3" style="margin-top:12px">
-      <div class="card"><h3>Basic — $30/mo</h3><p style="color:#475569">Weekly pull-to-curb & return.</p><a class="btn btn-primary" href="/thank-you.html?plan=basic">Get Basic</a></div>
-      <div class="card"><h3>Standard — $45/mo</h3><p style="color:#475569">Includes missed-day recovery.</p><a class="btn btn-primary" href="/thank-you.html?plan=standard">Get Standard</a></div>
-      <div class="card"><h3>Premium — $60/mo</h3><p style="color:#475569">Smell control + wipe-down service.</p><a class="btn btn-primary" href="/thank-you.html?plan=premium">Get Premium</a></div>
-    </div>
-    <p style="color:#475569;margin-top:10px">Refer a neighbor: both get the first week free. Unlimited referrals.</p>
-  </section>
-</main>
+    <section class="section">
+      <div class="card">
+        <h3>Why Premium</h3>
+        <p class="lead">Hygiene &amp; smell control, maggot prevention, and dirty-lid wipe-downs after city pickup.</p>
+        <ul class="feature-list">
+          <li>Lid/lip wipe-downs</li>
+          <li>Leaked trash pickup</li>
+          <li>Bins upright &amp; tucked back neatly</li>
+        </ul>
+      </div>
+    </section>
 
-<footer class="footer">
-  <div>© <span id="year"></span> CurbEase Bin Valet · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/admin.html">Admin</a></div>
-</footer>
+    <section id="pricing" class="section">
+      <h2>Simple Pricing</h2>
+      <div class="grid grid-3" style="margin-top:12px">
+        <div class="card"><h3>Basic — $30/mo</h3><p class="lead">Weekly pull-to-curb & return.</p><a class="btn btn-primary" href="/thank-you.html?plan=basic">Get Basic</a></div>
+        <div class="card"><h3>Standard — $45/mo</h3><p class="lead">Includes missed-day recovery.</p><a class="btn btn-primary" href="/thank-you.html?plan=standard">Get Standard</a></div>
+        <div class="card"><h3>Premium — $60/mo</h3><p class="lead">Smell control + wipe-down service.</p><a class="btn btn-primary" href="/thank-you.html?plan=premium">Get Premium</a></div>
+      </div>
+      <p class="lead" style="margin-top:10px">Refer a neighbor: both get the first week free. Unlimited referrals.</p>
+    </section>
+  </main>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <footer class="footer">
+    <div>© <span id="year"></span> CurbEase Bin Valet · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/admin.html">Admin</a></div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
