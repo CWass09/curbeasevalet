@@ -10,27 +10,26 @@
   from = "/privacy"
   to = "/privacy.html"
   status = 200
-
 [[redirects]]
   from = "/terms"
   to = "/terms.html"
   status = 200
-
 [[redirects]]
   from = "/b2b"
   to = "/b2b.html"
   status = 200
-
+[[redirects]]
+  from = "/mission"
+  to = "/mission.html"
+  status = 200
 [[redirects]]
   from = "/contact"
   to = "/contact.html"
   status = 200
-
 [[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200
-
 [[redirects]]
   from = "/admin"
   to = "/admin.html"
