@@ -1,0 +1,3 @@
+Sitemap: https://curbeasevalet.com/sitemap.xml
+User-agent: *
+Allow: /
