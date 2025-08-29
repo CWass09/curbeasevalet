@@ -1,0 +1,39 @@
+
+.section{padding:70px 0}
+.section h2{font-size:clamp(28px,3.2vw,40px);margin:0 0 12px;color:#102a3a}
+.section p.sub{color:#516171;margin:0 0 24px}
+.grid{display:grid;gap:20px}
+.grid.col-3{grid-template-columns:repeat(3,1fr)}
+.grid.col-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.col-3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid.col-3,.grid.col-2{grid-template-columns:1fr}}
+
+.card{border:1px solid #e8eef3;border-radius:14px;padding:18px;background:#fff;box-shadow:0 10px 30px rgba(10,30,60,.03)}
+.card h3{margin:0 0 6px}
+.muted{color:#6b7d8b}
+.price{font-size:34px;font-weight:800;color:#0a5a7e}
+ul.clean{list-style:none;padding:0;margin:10px 0}
+ul.clean li{padding:8px 0;border-top:1px solid #eef3f6}
+ul.clean li:first-child{border-top:0}
+.plan .btn{margin-top:12px;display:block;text-align:center}
+
+.strip{background:#f6fafb;border-top:1px solid #edf2f5;border-bottom:1px solid #edf2f5}
+.trust-logos img{height:32px;width:auto}
+
+.kv{display:flex;gap:14px;align-items:center}
+.kv .k{font-weight:700;color:#0b2a3e}
+.kv .v{color:#3f5566}
+
+.faq details{border:1px solid #e8eef3;border-radius:12px;padding:14px 16px;background:#fff}
+.faq details+details{margin-top:10px}
+.faq summary{cursor:pointer;font-weight:700}
+.small{font-size:14px}
+
+.footer{padding:30px 0;background:#0b2232;color:#9fb4c3;margin-top:60px}
+.footer a{color:#cce6f7;text-decoration:none;margin-right:16px}
+
+.sticky-cta{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#0a5a7e;color:#fff;padding:10px 16px;border-radius:999px;box-shadow:0 6px 30px rgba(0,0,0,.25);z-index:999}
+@media(min-width:840px){.sticky-cta{display:none}}
+
+.fade-in{opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .6s ease}
+.fade-in.show{opacity:1;transform:none}
