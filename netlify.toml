@@ -3,10 +3,7 @@
   publish = "."
   command = ""
 
-[functions]
-  directory = "netlify/functions"
-
-[[redirects]]
+[[redirects]]; keep in sync with _redirects
   from = "/privacy"
   to = "/privacy.html"
   status = 200

@@ -4,7 +4,6 @@ const CURBEASE_STRIPE_LINKS = {
   standard:"https://buy.stripe.com/14AdR3dQU51dfQEbWJ9oc03",
   premium: "https://buy.stripe.com/eVqfZbbIM79l6g4d0N9oc04"
 };
-
 function goSubscribe(plan){
   try{ window.captureReferral && window.captureReferral(plan); }catch(e){}
   const base = CURBEASE_STRIPE_LINKS[plan];
