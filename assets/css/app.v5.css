@@ -1,0 +1,96 @@
+
+:root{
+  --bg:#0d1321;          /* deep navy */
+  --bg-2:#101826;
+  --text:#0b1020;
+  --ink:#0b1020;
+  --ink-d:#0a0f1a;
+  --primary:#2f5aff;     /* cobalt */
+  --primary-600:#274be0;
+  --accent:#22c55e;      /* green */
+  --accent-2:#f59e0b;    /* amber */
+  --accent-3:#ec4899;    /* pink */
+  --soft:#f8fafc;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --ring:rgba(47,90,255,.18);
+  --shadow:0 10px 30px rgba(16,24,39,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;scroll-behavior:smooth}
+body{
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial;
+  color:var(--ink);
+  background:#f5f7fb url('/assets/img/flag-texture.png') no-repeat fixed;
+  background-size: 1400px auto;
+  background-position: right -200px top -80px;
+}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{width:min(1200px,92%);margin:0 auto}
+
+header.site{
+  position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #eef1f6;
+  backdrop-filter:saturate(180%) blur(6px);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;gap:14px;align-items:center}
+.brand .logo{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #6ea8ff, #1f3fb8)}
+.brand .title{font-weight:800;letter-spacing:.2px}
+
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav a{font-weight:600;color:var(--ink)}
+.cta{padding:10px 16px;border-radius:999px;background:var(--primary);color:#fff;box-shadow:0 8px 20px var(--ring)}
+.cta:hover{background:var(--primary-600)}
+
+.hero{padding:56px 0 8px;background:linear-gradient(180deg,#ffffff,rgba(255,255,255,.85))}
+.hero .headline{font-size: clamp(32px, 5vw, 56px); line-height:1.05; font-weight:900; letter-spacing:.2px; margin:0 0 8px}
+.kickers{color:#334155;font-weight:600;display:flex;gap:16px;flex-wrap:wrap}
+.promo{
+  margin:18px 0 10px;padding:16px 18px;border-radius:16px;background:#fff6ea;
+  border:2px dashed #f59e0b; color:#7a5300; font-weight:800; box-shadow: var(--shadow);
+}
+
+.pills{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 22px}
+.pill{padding:12px 18px;border-radius:999px;background:#ecfdf5;color:#065f46;font-weight:800;box-shadow: var(--shadow)}
+.pill.alt{background:#fff7ed;color:#7c2d12}
+.pill.badge{background:#eff6ff;color:#1e3a8a;border:1px solid #bfd0ff}
+
+.section{padding:32px 0}
+.cards{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+.card{
+  grid-column: span 4; background:var(--card); border-radius:var(--radius); padding:22px;
+  border:1px solid #e6ebf4; box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(16,24,39,.12)}
+
+.ribbon{display:inline-flex;align-items:center;gap:10px;margin:8px 0 14px}
+.ribbon .tag{padding:8px 14px;border-radius:999px;font-weight:800;box-shadow:var(--shadow)}
+.r-red{background:#fee2e2;color:#991b1b}
+.r-blue{background:#eff6ff;color:#1e3a8a}
+.r-green{background:#ecfdf5;color:#065f46}
+
+.pricing{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.tier{
+  grid-column:span 3;background:#fff;border:1px solid #e6ebf4;border-radius:22px;overflow:hidden;
+  box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease;
+}
+.tier:hover{transform:translateY(-4px);box-shadow:0 16px 46px rgba(16,24,39,.14)}
+.tier .hd{padding:16px 18px;font-weight:900; display:flex; align-items:center; justify-content:space-between}
+.tier.basic .hd{background:linear-gradient(180deg,#ecfff7,#d7fbe8)}
+.tier.standard .hd{background:linear-gradient(180deg,#eef2ff,#dbe3ff)}
+.tier.premium .hd{background:linear-gradient(180deg,#fff0f7,#ffd7e8)}
+.tier .price{font-size:36px;font-weight:900;margin:10px 18px}
+.tier ul{margin:0 22px 18px 35px}
+.tier .cta{margin:0 18px 18px 18px; display:inline-block}
+.tier .plus{padding:12px 18px; background:#f8fafc; border-top:1px dashed #e2e8f0; font-weight:800}
+
+.charities{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.charities img{height:48px;filter:grayscale(15%);opacity:.95}
+footer{margin-top:40px;padding:28px 0;border-top:1px solid #e6ebf4;background:#fff}
+.small{font-size:.925rem;color:#475569}
+
+.heroimg{width:100%;border-radius:22px;box-shadow: var(--shadow);margin-top:18px}
+.flag-bg{background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.95))}
