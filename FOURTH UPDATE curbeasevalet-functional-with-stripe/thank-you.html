@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank you – CurbEase</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head><body>
+<header><nav><a href="/">Home</a> • <a href="/#pricing">Pricing</a> • <a href="/#contact">Contact</a></nav></header>
+<section class="hero"><h1>Welcome to CurbEase!</h1><p id="plan"></p></section>
+<section class="section" style="max-width:1180px;margin:0 auto;padding:40px 20px">
+  <h2>What happens next</h2>
+  <ol>
+    <li>We’ll email you a quick confirmation.</li>
+    <li>Reply with any access notes (gate code, long driveway, pets).</li>
+    <li>Your first set‑out will be the next scheduled pickup for your area.</li>
+  </ol>
+  <p class="small">Questions? Email <strong>info@prosperbinvalet.com</strong>.</p>
+</section>
+<script>
+  const params = new URLSearchParams(location.search);
+  const plan = params.get("plan");
+  document.getElementById("plan").textContent = plan ? `Plan: ${plan}` : "";
+</script>
+</body></html>
