@@ -1,0 +1,3 @@
+/* CurbEase Styles Loader */
+@import url("/fixes.css");
+/* If your repo is not deployed at domain root, also ensure a copy of fixes.css exists at relative path. */
