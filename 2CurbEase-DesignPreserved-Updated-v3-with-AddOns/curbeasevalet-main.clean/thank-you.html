@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You - CurbEase</title>
+
+  <style>
+    :root{--ink:#0f172a;--muted:#64748b;--brand:#1e293b;--ok:#16a34a;--chip:#0b1220}
+    html,body{margin:0;padding:0;background:#f8fafc;color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial}
+    .wrap{max-width:920px;margin:56px auto;padding:0 20px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 12px 36px rgba(2,8,23,.08);padding:28px}
+    h1{margin:0 0 12px;font-size:clamp(22px,2.6vw,32px);font-weight:800;letter-spacing:-.02em}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;border-radius:999px;padding:6px 12px;font-weight:700;font-size:14px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:4px}
+    .value{font-weight:700}
+    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+    pre{background:#0b1220;color:#e5e7eb;border-radius:12px;padding:14px;overflow:auto}
+    .hidden{display:none}
+    .ref-title{margin:28px 0 10px;font-weight:800}
+  </style>
+
+  <!-- GA4 base (safe if already present elsewhere) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE57NMTBW9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-CE57NMTBW9'); // curbeasevalet.com property
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Thanks for subscribing to CurbEase! <span id="confirm" class="pill">Confirmed</span></h1>
+      <p class="muted" style="margin:0 0 22px">We’ve received your order. Below are your details:</p>
+
+      <div class="grid" style="margin-bottom:10px">
+        <div>
+          <div class="label">Name</div>
+          <div id="name" class="value">&nbsp;</div>
+        </div>
+        <div>
+          <div class="label">Email</div>
+          <div id="email" class="value">&nbsp;</div>
+        </div>
+        <div>
+          <div class="label">Address</div>
+          <div id="address" class="value">&nbsp;</div>
+        </div>
+        <div>
+          <div class="label">Plan</div>
+          <div id="plan" class="value">&nbsp;</div>
+        </div>
+        <div>
+          <div class="label">Stripe Session</div>
+          <div id="sid" class="mono muted" style="font-size:12px">&nbsp;</div>
+        </div>
+        <div>
+          <div class="label">Value</div>
+          <div id="value" class="value">$0.00</div>
+        </div>
+      </div>
+
+      <!-- debug pills -->
+      <div id="badges" class="hidden" style="display:flex;gap:10px;margin:8px 0 0">
+        <span class="pill"><span class="mono">stripe</span> <span id="badgeStripe">0</span></span>
+        <span class="pill"><span class="mono">sent</span> stripe</span>
+      </div>
+
+      <!-- Reference JSON (debug only) -->
+      <h3 id="refTitle" class="ref-title hidden">Reference</h3>
+      <div id="refWrap" class="hidden">
+        <pre id="ref" class="mono">Loading…</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (async () => {
+      const qs = new URLSearchParams(location.search);
+      const sessionId = qs.get('session_id');
+      const planParam = (qs.get('plan') || '').toLowerCase();
+      // Debug ONLY if you add &debug=1 to the URL
+      const DEBUG = qs.get('debug') === '1';
+
+      // Utility to show messages
+      const show = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+      const dollars = c => '$' + (Number(c || 0).toFixed(2));
+
+      if (!sessionId) {
+        show('ref', JSON.stringify({ error: 'Missing session_id' }, null, 2));
+        document.getElementById('refWrap').classList.remove('hidden');
+        document.getElementById('refTitle').classList.remove('hidden');
+        return;
+      }
+
+      let session;
+      try {
+        const url = `/.netlify/functions/get-checkout-session?session_id=${encodeURIComponent(sessionId)}`;
+        const res = await fetch(url, { method: 'GET' });
+        const text = await res.text();
+        try { session = JSON.parse(text); }
+        catch (e) { session = { error: 'Function did not return JSON', raw: text.slice(0, 400) }; }
+
+        if (DEBUG) {
+          document.getElementById('badges').classList.remove('hidden');
+          document.getElementById('refWrap').classList.remove('hidden');
+          document.getElementById('refTitle').classList.remove('hidden');
+          document.getElementById('ref').textContent = JSON.stringify(session, null, 2);
+        }
+      } catch (err) {
+        if (DEBUG) {
+          document.getElementById('refWrap').classList.remove('hidden');
+          document.getElementById('refTitle').classList.remove('hidden');
+          document.getElementById('ref').textContent = JSON.stringify({ fetch_error: String(err) }, null, 2);
+        }
+        return;
+      }
+
+      if (session && session.error) {
+        show('ref', JSON.stringify(session, null, 2));
+        document.getElementById('refWrap').classList.remove('hidden');
+        document.getElementById('refTitle').classList.remove('hidden');
+        return;
+      }
+
+      const details = session.customer_details || {};
+      const ship     = (session.shipping_details && session.shipping_details.address) || {};
+      const metadata = session.metadata || {};
+      const lineItem = session.line_items?.data?.[0] || null;
+
+      show('name',  details.name || '—');
+      show('email', details.email || '—');
+
+      const addr = [
+        ship.line1,
+        ship.line2,
+        [ship.city, ship.state].filter(Boolean).join(', '),
+        ship.postal_code
+      ].filter(Boolean).join(' • ');
+      show('address', addr || '—');
+
+      let plan = (metadata.Plan || lineItem?.description || planParam || '').toString();
+      if (!plan) plan = 'Standard';
+      show('plan', plan);
+
+      show('sid', session.id || sessionId);
+
+      const PLAN_MAP = { basic: 30, standard: 45, premium: 60 };
+      let value = 0;
+      if (lineItem?.price?.unit_amount) {
+        value = lineItem.price.unit_amount / 100;
+      } else if (PLAN_MAP[plan.toLowerCase()]) {
+        value = PLAN_MAP[plan.toLowerCase()];
+      } else if (typeof session.amount_total === 'number') {
+        value = session.amount_total / 100;
+      }
+      value = Math.max(0, Number(value) || 0);
+      show('value', dollars(value));
+      const badge = document.getElementById('badgeStripe'); if (badge) badge.textContent = String(value);
+
+      try {
+        if (window.gtag) {
+          const txId = session.id || sessionId;
+          gtag('event', 'purchase', {
+            transaction_id: txId,
+            currency: 'USD',
+            value: value,
+            items: [{
+              item_id: 'subscription',
+              item_name: plan,
+              item_category: 'Subscription',
+              price: value,
+              quantity: 1
+            }]
+          });
+          if (DEBUG) gtag('event', 'purchase_debug', { debug: true, value, plan, txId });
+        }
+      } catch(e) {}
+
+      try {
+        const ensureGtag = () => new Promise(resolve => {
+          if (window.gtag) return resolve();
+          const s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17486849561';
+          s.async = true;
+          s.onload = () => { window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments); } window.gtag = gtag; gtag('js', new Date()); resolve(); };
+          document.head.appendChild(s);
+        });
+
+        await ensureGtag();
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17486849561/gOGuCKrg3o0bEJnMsJJB',
+          'value': value,
+          'currency': 'USD',
+          'transaction_id': session.id || sessionId
+        });
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>
