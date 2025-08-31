@@ -1,0 +1,4 @@
+Moved the Mission section to just before the FAQ section in index.html.
+Search patterns used:
+- Mission: marker comment or <section id="mission"> or a section containing an H1/H2 titled 'Mission'
+- FAQ: <section id="faq"> or first H1/H2 titled 'FAQ'
