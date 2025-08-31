@@ -1,7 +1,0 @@
-[2025-08-26 05:49:06] FIXED_ADMIN v1
-- Replace admin-app.html with dark UI + search + status
-- Replace admin-app.js with robust CSV fallbacks (export, gviz, publish link)
-- Added cache-busting + retry + clear status messages
-- Pruned duplicate/old admin-app JS/HTML variants from package
-- Ensured _headers includes X-Content-Type-Options: nosniff
-- Added GA4 purchase scaffold to thank-you.html if missing
